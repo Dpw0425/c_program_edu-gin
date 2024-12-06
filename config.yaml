@@ -1,0 +1,3 @@
+app:
+  env: dev
+  run_mode: debug
