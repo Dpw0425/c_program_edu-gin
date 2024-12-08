@@ -1,3 +1,11 @@
 app:
   env: dev
   run_mode: debug
+
+server:
+  http: 8080
+  websocket: 8081
+  tcp: 8082
+
+log:
+  path: "./temp"

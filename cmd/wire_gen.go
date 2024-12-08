@@ -8,14 +8,32 @@ package main
 
 import (
 	"c_program_edu-gin/internal/app/api"
+	"c_program_edu-gin/internal/app/api/handler"
+	"c_program_edu-gin/internal/app/api/handler/web"
+	"c_program_edu-gin/internal/app/api/router"
 	"c_program_edu-gin/internal/config"
+	"c_program_edu-gin/internal/provider"
+	"github.com/google/wire"
 )
 
 // Injectors from wire.go:
 
 func NewHttpInjector(conf *config.Config) *api.AppProvider {
+	v1 := &web.V1{}
+	webHandler := &web.Handler{
+		V1: v1,
+	}
+	handlerHandler := &handler.Handler{
+		Web: webHandler,
+	}
+	engine := router.NewRouter(conf, handlerHandler)
 	appProvider := &api.AppProvider{
 		Config: conf,
+		Engine: engine,
 	}
 	return appProvider
 }
+
+// wire.go:
+
+var providerSet = wire.NewSet(provider.NewHttpClient)
