@@ -1,4 +1,4 @@
-package context
+package ctx
 
 import (
 	"c_program_edu-gin/pkg/response"

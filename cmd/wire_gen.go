@@ -7,10 +7,15 @@
 package main
 
 import (
+	"c_program_edu-gin/internal/app"
 	"c_program_edu-gin/internal/app/api"
 	"c_program_edu-gin/internal/app/api/handler"
 	"c_program_edu-gin/internal/app/api/handler/web"
+	"c_program_edu-gin/internal/app/api/handler/web/v1"
 	"c_program_edu-gin/internal/app/api/router"
+	service2 "c_program_edu-gin/internal/app/service"
+	"c_program_edu-gin/internal/app/service/web/v1"
+	"c_program_edu-gin/internal/app/storage/cache"
 	"c_program_edu-gin/internal/config"
 	"c_program_edu-gin/internal/provider"
 	"github.com/google/wire"
@@ -19,14 +24,22 @@ import (
 // Injectors from wire.go:
 
 func NewHttpInjector(conf *config.Config) *api.AppProvider {
-	v1 := &web.V1{}
+	emailService := service.EmailService{}
+	common := &v1.Common{
+		EmailService: emailService,
+	}
+	webV1 := &web.V1{
+		Common: common,
+	}
 	webHandler := &web.Handler{
-		V1: v1,
+		V1: webV1,
 	}
 	handlerHandler := &handler.Handler{
 		Web: webHandler,
 	}
-	engine := router.NewRouter(conf, handlerHandler)
+	client := provider.NewRedisClient(conf)
+	jwtTokenStorage := cache.NewTokenSessionStorage(client)
+	engine := router.NewRouter(conf, handlerHandler, jwtTokenStorage)
 	appProvider := &api.AppProvider{
 		Config: conf,
 		Engine: engine,
@@ -36,4 +49,4 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 
 // wire.go:
 
-var providerSet = wire.NewSet(provider.NewHttpClient)
+var providerSet = wire.NewSet(provider.NewHttpClient, provider.NewRequestClient, provider.NewRedisClient, service2.WebProviderSet, app.CacheProviderSet)

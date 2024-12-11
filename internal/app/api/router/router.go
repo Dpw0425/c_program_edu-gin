@@ -3,6 +3,7 @@ package router
 import (
 	"c_program_edu-gin/internal/app/api/handler"
 	"c_program_edu-gin/internal/app/middleware"
+	"c_program_edu-gin/internal/app/storage/cache"
 	"c_program_edu-gin/internal/config"
 	myErr "c_program_edu-gin/pkg/error"
 	"c_program_edu-gin/pkg/response"
@@ -12,7 +13,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func NewRouter(conf *config.Config, handler *handler.Handler) *gin.Engine {
+func NewRouter(conf *config.Config, handler *handler.Handler, session *cache.JwtTokenStorage) *gin.Engine {
 	router := gin.New()
 
 	// 新增路由过滤规则
@@ -39,6 +40,8 @@ func NewRouter(conf *config.Config, handler *handler.Handler) *gin.Engine {
 	router.GET("/", func(c *gin.Context) {
 		response.NorResponse(c, gin.H{}, "hello world!")
 	})
+
+	RegisterWebRouter(conf.Jwt.Secret, router, handler.Web, session)
 
 	return router
 }
