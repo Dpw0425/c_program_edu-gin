@@ -16,7 +16,9 @@ import (
 	service2 "c_program_edu-gin/internal/app/service"
 	"c_program_edu-gin/internal/app/service/web/v1"
 	"c_program_edu-gin/internal/app/storage/cache"
+	"c_program_edu-gin/internal/app/storage/repo"
 	"c_program_edu-gin/internal/config"
+	"c_program_edu-gin/internal/job"
 	"c_program_edu-gin/internal/provider"
 	"github.com/google/wire"
 )
@@ -24,7 +26,18 @@ import (
 // Injectors from wire.go:
 
 func NewHttpInjector(conf *config.Config) *api.AppProvider {
-	emailService := service.EmailService{}
+	client := provider.NewRedisClient(conf)
+	emailStorage := cache.NewEmailStorage(client)
+	db := provider.NewMysqlClient(conf)
+	userRepo := repo.NewUsers(db)
+	templateService := &service.TemplateService{}
+	emailClient := provider.NewEmailClient(conf)
+	emailService := service.EmailService{
+		Storage:  emailStorage,
+		UserRepo: userRepo,
+		Template: templateService,
+		Client:   emailClient,
+	}
 	common := &v1.Common{
 		EmailService: emailService,
 	}
@@ -37,7 +50,6 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	handlerHandler := &handler.Handler{
 		Web: webHandler,
 	}
-	client := provider.NewRedisClient(conf)
 	jwtTokenStorage := cache.NewTokenSessionStorage(client)
 	engine := router.NewRouter(conf, handlerHandler, jwtTokenStorage)
 	appProvider := &api.AppProvider{
@@ -47,6 +59,15 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	return appProvider
 }
 
+func NewSQLInjector(conf *config.Config) *job.SQLProvider {
+	db := provider.NewMysqlClient(conf)
+	sqlProvider := &job.SQLProvider{
+		Config: conf,
+		DB:     db,
+	}
+	return sqlProvider
+}
+
 // wire.go:
 
-var providerSet = wire.NewSet(provider.NewHttpClient, provider.NewRequestClient, provider.NewRedisClient, service2.WebProviderSet, app.CacheProviderSet)
+var providerSet = wire.NewSet(provider.NewHttpClient, provider.NewRequestClient, provider.NewMysqlClient, provider.NewRedisClient, provider.NewEmailClient, service2.WebProviderSet, app.CacheProviderSet, app.RepoProviderSet)

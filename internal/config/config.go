@@ -1,9 +1,12 @@
 package config
 
 import (
+	"c_program_edu-gin/utils/encrypt"
+	"c_program_edu-gin/utils/generator"
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"os"
+	"time"
 )
 
 type Config struct {
@@ -30,7 +33,7 @@ func Load(filename string) *Config {
 		panic(fmt.Sprintf("解析 config.yaml 失败: %v!", err))
 	}
 
-	// conf.sid = encrypt.Md5(fmt.Sprintf("%d%s", time.Now().UnixNano(), generator.Random(6)))
+	conf.sid = encrypt.Md5(fmt.Sprintf("%d%s", time.Now().UnixNano(), generator.Random(6)))
 
 	return &conf
 }

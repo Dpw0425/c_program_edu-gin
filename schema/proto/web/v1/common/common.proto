@@ -1,0 +1,13 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/common;web";
+
+import "tagger/tagger.proto";
+
+message SendEmailCodeRequest {
+  string email = 1 [(tagger.tags) = "binding:\"required\""];
+  string channel = 2 [(tagger.tags) = "binding:\"required,oneof=login register forget_password change_password\""];
+}
+
+message SendEmailCodeResponse {}
