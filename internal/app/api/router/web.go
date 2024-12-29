@@ -16,5 +16,10 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 		{
 			common.POST("/send_email_code", ctx.HandlerFunc(handler.V1.Common.SendEmailCode)) // 邮箱验证码
 		}
+
+		user := v1.Group("/user")
+		{
+			user.POST("/register", ctx.HandlerFunc(handler.V1.User.Register)) // 用户注册
+		}
 	}
 }

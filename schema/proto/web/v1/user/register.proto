@@ -1,0 +1,16 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/user;web";
+
+import "third_party/tagger/tagger.proto";
+
+message UserRegisterRequest {
+  string nickname = 1 [(tagger.tags) = "binding:\"required\""];
+  string password = 2 [(tagger.tags) = "binding:\"required\""];
+  string avatar = 3 [(tagger.tags) = "binding:\"required\""];
+  string email = 4 [(tagger.tags) = "binding:\"required\""];
+  string verify_code = 5 [(tagger.tags) = "binding:\"required\""];
+}
+
+message UserRegisterResponse {}
