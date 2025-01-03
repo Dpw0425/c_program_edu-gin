@@ -7,9 +7,9 @@ import (
 )
 
 type NormalResponse struct {
-	Status  int         `json:"code"` // 响应状态码
-	Data    interface{} `json:"data"` // 返回内容
-	Message string      `json:"msg"`  // 返回消息
+	Status  int         `json:"code"`    // 响应状态码
+	Data    interface{} `json:"data"`    // 返回内容
+	Message string      `json:"message"` // 返回消息
 }
 
 type ErrorResponse struct {

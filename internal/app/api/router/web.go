@@ -20,6 +20,7 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 		user := v1.Group("/user")
 		{
 			user.POST("/register", ctx.HandlerFunc(handler.V1.User.Register)) // 用户注册
+			user.POST("/login", ctx.HandlerFunc(handler.V1.User.Login))       // 用户登录
 		}
 	}
 }

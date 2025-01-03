@@ -57,19 +57,20 @@
 
 ### 比赛表 (`competitions`)
 
-| 属性         | 数据类型            | 说明     | 备注                   |
-|------------|-----------------|--------|----------------------|
-| id         | bigint unsigned | 自增 ID  | primary key          |
-| created_at | time            | 创建时间   |                      |
-| updated_at | time            | 修改时间   |                      |
-| deleted_at | time            | 删除时间   |                      |
-| name       | longtext        | 比赛名称   |                      |
-| contestant | longtext        | 参赛选手   |                      |
-| owner_id   | bigint          | 创办者 ID |                      |
-| start_time | time            | 开始时间   |                      |
-| deadline   | time            | 截止时间   |                      |
-| status     | tinyint         | 比赛状态   | 0: 未开始 1: 进行中 2: 已结束 |
-| category   | tinyint         | 比赛类别   | 0: 公开 1: 私有          |
+| 属性         | 数据类型            | 说明     | 备注                          |
+|------------|-----------------|--------|-----------------------------|
+| id         | bigint unsigned | 自增 ID  | primary key                 |
+| created_at | time            | 创建时间   |                             |
+| updated_at | time            | 修改时间   |                             |
+| deleted_at | time            | 删除时间   |                             |
+| name       | longtext        | 比赛名称   |                             |
+| contestant | longtext        | 参赛选手   |                             |
+| owner_id   | bigint          | 创办者 ID |                             |
+| start_time | time            | 开始时间   |                             |
+| deadline   | time            | 截止时间   |                             |
+| status     | tinyint         | 比赛状态   | 0: 报名中 1: 未开始 2: 进行中 3: 已截止 |
+| category   | tinyint         | 比赛类别   | 0: 个人 1: 团体                 |
+| permission | tinyint         | 比赛权限   | 0: 公开(所有人可报名) 1: 私有(报名需审批)  |
 
 ### 比赛报名表 (`entries`)
 

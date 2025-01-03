@@ -1,0 +1,18 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/user;web";
+
+import "third_party/tagger/tagger.proto";
+
+message UserLoginRequest {
+  string email = 1 [(tagger.tags) = "binding:\"required\""];
+  string password = 2;
+  string verify_code = 3;
+}
+
+message UserLoginResponse {
+  string type = 1;
+  string access_token = 2;
+  string expires_in = 3;
+}
