@@ -13,7 +13,7 @@ import (
 const JWTSessionConst = "__JWT_SESSION__"
 
 type JSession struct {
-	Uid       int    `json_utils:"uid"`
+	Uid       int64  `json_utils:"uid"`
 	Token     string `json_utils:"token"`
 	ExpiresAt int64  `json_utils:"expires_at"`
 }
@@ -28,7 +28,7 @@ type IStorage interface {
 }
 
 // 鉴权中间件
-func Auth(guard string, secret string, storage IStorage) gin.HandlerFunc {
+func Auth(secret string, guard string, storage IStorage) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := GetHeaderToken(c)
 
@@ -42,13 +42,13 @@ func Auth(guard string, secret string, storage IStorage) gin.HandlerFunc {
 			response.ErrResponse(c, myErr.Unauthorized("", "登录已过期！"))
 		}
 
-		uid, err1 := strconv.Atoi(claims.ID)
+		uid, err1 := strconv.ParseInt(claims.ID, 10, 64)
 		if err1 != nil {
 			response.ErrResponse(c, myErr.InternalServerError("", "解析 JWT 失败！"))
 			return
 		}
 
-		c.Set(JWTSessionConst, JSession{
+		c.Set(JWTSessionConst, &JSession{
 			Uid:       uid,
 			Token:     token,
 			ExpiresAt: claims.ExpiresAt.Unix(),

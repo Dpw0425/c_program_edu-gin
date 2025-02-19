@@ -39,7 +39,7 @@ func (c *Context) JSONData(data any) interface{} {
 }
 
 // UserID 返回登录用户的 uid
-func (c *Context) UserID() int {
+func (c *Context) UserID() int64 {
 	if session := c.JWTSession(); session != nil {
 		return session.Uid
 	}

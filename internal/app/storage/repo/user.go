@@ -42,3 +42,8 @@ func (u *UserRepo) FindByEmail(ctx context.Context, email string) (*model.User, 
 
 	return u.Repo.FindByWhere(ctx, "email = ?", email)
 }
+
+// 通过 ID 查询
+func (u *UserRepo) FindByID(ctx context.Context, UserID int64) (*model.User, error) {
+	return u.FindByWhere(ctx, "user_id = ?", UserID)
+}

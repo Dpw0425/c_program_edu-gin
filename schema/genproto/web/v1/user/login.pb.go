@@ -26,7 +26,7 @@ type UserLoginRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Email      string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty" binding:"required"`
+	Email      string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
 	Password   string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
 	VerifyCode string `protobuf:"bytes,3,opt,name=verify_code,json=verifyCode,proto3" json:"verify_code,omitempty"`
 }

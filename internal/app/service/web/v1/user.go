@@ -17,6 +17,7 @@ type IUserService interface {
 	Register(ctx context.Context, register *schema.UserRegister) error
 	LoginByPassword(ctx context.Context, login *schema.UserLogin) (*model.User, error)
 	GetUserByEmail(ctx context.Context, email string) (*model.User, error)
+	GetUserByID(ctx context.Context, UserID int64) (*model.User, error)
 }
 
 type UserService struct {
@@ -56,6 +57,19 @@ func (u *UserService) LoginByPassword(ctx context.Context, sul *schema.UserLogin
 
 func (u *UserService) GetUserByEmail(ctx context.Context, email string) (*model.User, error) {
 	user, err := u.UserRepo.FindByEmail(ctx, email)
+	if err != nil {
+		if myErr.Equal(err, gorm.ErrRecordNotFound) {
+			return nil, myErr.BadRequest("", "账号不存在！")
+		}
+
+		return nil, myErr.BadRequest("", err.Error())
+	}
+
+	return user, nil
+}
+
+func (u *UserService) GetUserByID(ctx context.Context, UserID int64) (*model.User, error) {
+	user, err := u.UserRepo.FindByID(ctx, UserID)
 	if err != nil {
 		if myErr.Equal(err, gorm.ErrRecordNotFound) {
 			return nil, myErr.BadRequest("", "账号不存在！")

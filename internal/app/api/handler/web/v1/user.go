@@ -96,3 +96,19 @@ func (u *User) token(uid int64) string {
 
 	return token
 }
+
+func (u *User) Info(ctx *ctx.Context) error {
+	result, err := u.UserService.GetUserByID(ctx.Ctx(), ctx.UserID())
+	if err != nil {
+		return err
+	}
+
+	response.NorResponse(ctx.Context, &web.UserInfoResponse{
+		UserId:   result.UserID,
+		NickName: result.NickName,
+		Email:    result.Email,
+		Avatar:   result.Avatar,
+		Status:   int32(result.Status),
+	}, "登录成功！")
+	return nil
+}
