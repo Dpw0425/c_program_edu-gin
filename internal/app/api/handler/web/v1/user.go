@@ -4,6 +4,7 @@ import (
 	"c_program_edu-gin/internal/app/constants"
 	"c_program_edu-gin/internal/app/schema"
 	service "c_program_edu-gin/internal/app/service/web/v1"
+	"c_program_edu-gin/internal/app/storage/cache"
 	"c_program_edu-gin/internal/app/storage/model"
 	"c_program_edu-gin/internal/config"
 	ctx "c_program_edu-gin/internal/pkg/context"
@@ -16,9 +17,10 @@ import (
 )
 
 type User struct {
-	Config       *config.Config
-	UserService  service.IUserService
-	EmailService service.IEmailService
+	Config          *config.Config
+	JwtTokenStorage *cache.JwtTokenStorage
+	UserService     service.IUserService
+	EmailService    service.IEmailService
 }
 
 func (u *User) Register(ctx *ctx.Context) error {
@@ -111,4 +113,20 @@ func (u *User) Info(ctx *ctx.Context) error {
 		Status:   int32(result.Status),
 	}, "登录成功！")
 	return nil
+}
+
+func (u *User) Logout(ctx *ctx.Context) error {
+	u.toBlackList(ctx)
+
+	response.NorResponse(ctx.Context, &web.UserLogoutResponse{}, "退出成功！")
+	return nil
+}
+
+func (u *User) toBlackList(ctx *ctx.Context) {
+	session := ctx.JWTSession()
+	if session != nil {
+		if ex := session.ExpiresAt - time.Now().Unix(); ex > 0 {
+			_ = u.JwtTokenStorage.SetBlackList(ctx.Ctx(), session.Token, time.Duration(ex)*time.Second)
+		}
+	}
 }

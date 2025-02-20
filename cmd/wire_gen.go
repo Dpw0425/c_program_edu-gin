@@ -41,6 +41,7 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	common := &v1.Common{
 		EmailService: emailService,
 	}
+	jwtTokenStorage := cache.NewTokenSessionStorage(client)
 	userService := &service.UserService{
 		UserRepo: userRepo,
 	}
@@ -51,9 +52,10 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		Client:   emailClient,
 	}
 	user := &v1.User{
-		Config:       conf,
-		UserService:  userService,
-		EmailService: serviceEmailService,
+		Config:          conf,
+		JwtTokenStorage: jwtTokenStorage,
+		UserService:     userService,
+		EmailService:    serviceEmailService,
 	}
 	webV1 := &web.V1{
 		Common: common,
@@ -65,7 +67,6 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	handlerHandler := &handler.Handler{
 		Web: webHandler,
 	}
-	jwtTokenStorage := cache.NewTokenSessionStorage(client)
 	engine := router.NewRouter(conf, handlerHandler, jwtTokenStorage)
 	appProvider := &api.AppProvider{
 		Config: conf,

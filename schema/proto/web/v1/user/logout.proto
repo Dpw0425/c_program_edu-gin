@@ -1,0 +1,10 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/user;web";
+
+// import "third_party/tagger/tagger.proto";
+
+message UserLogoutRequest {}
+
+message UserLogoutResponse {}
