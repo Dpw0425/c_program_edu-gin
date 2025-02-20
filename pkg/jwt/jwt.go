@@ -18,7 +18,7 @@ func NewNumericData(t time.Time) *jwt.NumericDate {
 }
 
 // GenerateToken 生成 JWT 令牌
-func GenerateToken(guard string, secret string, opts *Options) (string, error) {
+func GenerateToken(guard string, secret string, opts *Options) string {
 	claims := &AuthClaims{
 		Guard: guard,
 		RegisteredClaims: jwt.RegisteredClaims{
@@ -32,12 +32,9 @@ func GenerateToken(guard string, secret string, opts *Options) (string, error) {
 		},
 	}
 
-	tokenString, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(secret))
-	if err != nil {
-		return "", err
-	}
+	tokenString, _ := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString([]byte(secret))
 
-	return tokenString, nil
+	return tokenString
 }
 
 // ParseToken 解析 JWT Token
@@ -49,6 +46,10 @@ func ParseToken(tokenString string, secret string) (*AuthClaims, error) {
 
 		return []byte(secret), nil
 	})
+
+	if token == nil {
+		return nil, fmt.Errorf("token is nil")
+	}
 
 	if claims, ok := token.Claims.(*AuthClaims); ok && token.Valid {
 		return claims, nil

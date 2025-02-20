@@ -87,7 +87,7 @@ func (u *User) Login(ctx *ctx.Context) error {
 func (u *User) token(uid int64) string {
 	expiresAt := time.Now().Add(time.Second * time.Duration(u.Config.Jwt.ExpiresTime))
 
-	token, _ := jwt.GenerateToken("api", u.Config.Jwt.Secret, &jwt.Options{
+	token := jwt.GenerateToken("api", u.Config.Jwt.Secret, &jwt.Options{
 		ExpiresAt: jwt.NewNumericData(expiresAt),
 		ID:        strconv.FormatInt(uid, 10),
 		Issuer:    "c_program_edu.web",
