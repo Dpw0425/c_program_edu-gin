@@ -61,7 +61,7 @@ func (e *EmailService) Send(ctx context.Context, channel string, to string) erro
 	// 构建邮件发送对象
 	send := &email.Option{
 		To:      []string{to},
-		Subject: "欢迎您注册CProgramEdu",
+		Subject: "欢迎您使用 CProgramEdu",
 		Content: msg,
 	}
 
