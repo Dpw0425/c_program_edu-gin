@@ -107,7 +107,7 @@ func (u *User) Info(ctx *ctx.Context) error {
 
 	response.NorResponse(ctx.Context, &web.UserInfoResponse{
 		UserId:   result.UserID,
-		NickName: result.NickName,
+		Nickname: result.NickName,
 		Email:    result.Email,
 		Avatar:   result.Avatar,
 		Status:   int32(result.Status),

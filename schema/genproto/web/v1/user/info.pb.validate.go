@@ -159,7 +159,7 @@ func (m *UserInfoResponse) validate(all bool) error {
 
 	// no validation rules for UserId
 
-	// no validation rules for NickName
+	// no validation rules for Nickname
 
 	// no validation rules for Email
 
