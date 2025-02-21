@@ -36,3 +36,15 @@ email:
   name: test
   password: FLBUHLEVTPDMLUWY
   expires: 10
+
+file_system:
+  default: local
+  local:
+    # 文件保存的根目录
+    root: "temp/uploads/"
+    # 公开的 bucket
+    bucket_public: "public"
+    # 私有的 bucket
+    bucket_private: "private"
+    endpoint: "http://localhost:8080"
+    ssl: false

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/upload;web";
+
+// import "third_party/tagger/tagger.proto";
+
+message UploadAvatarRequest {}
+
+message UploadAvatarResponse {
+  string avatar = 1;
+}

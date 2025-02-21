@@ -16,6 +16,8 @@ import (
 func NewRouter(conf *config.Config, handler *handler.Handler, session *cache.JwtTokenStorage) *gin.Engine {
 	router := gin.New()
 
+	router.Static("/public", "./temp/uploads/public")
+
 	// 新增路由过滤规则
 	accessFilterRule := middleware.NewAccessFilterRule()
 	accessFilterRule.AddRule("/api/v1/user/login", func(req *middleware.RequestInfo) {

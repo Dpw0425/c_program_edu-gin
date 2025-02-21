@@ -10,14 +10,15 @@ import (
 )
 
 type Config struct {
-	sid    string  // 服务运行 ID
-	App    *App    `json_utils:"app" yaml:"app" mapstructure:"app"`
-	Server *Server `json_utils:"server" yaml:"server" mapstructure:"server"`
-	Log    *Log    `json_utils:"log" yaml:"log" mapstructure:"log"`
-	Mysql  *Mysql  `json_utils:"mysql" yaml:"mysql" mapstructure:"mysql"`
-	Jwt    *Jwt    `json_utils:"jwt" yaml:"jwt" mapstructure:"jwt"`
-	Redis  *Redis  `json_utils:"redis" yaml:"redis" mapstructure:"redis"`
-	Email  *Email  `json_utils:"email" yaml:"email" mapstructure:"email"`
+	sid        string      // 服务运行 ID
+	App        *App        `json_utils:"app" yaml:"app" mapstructure:"app"`
+	Server     *Server     `json_utils:"server" yaml:"server" mapstructure:"server"`
+	Log        *Log        `json_utils:"log" yaml:"log" mapstructure:"log"`
+	Mysql      *Mysql      `json_utils:"mysql" yaml:"mysql" mapstructure:"mysql"`
+	Jwt        *Jwt        `json_utils:"jwt" yaml:"jwt" mapstructure:"jwt"`
+	Redis      *Redis      `json_utils:"redis" yaml:"redis" mapstructure:"redis"`
+	Email      *Email      `json_utils:"email" yaml:"email" mapstructure:"email"`
+	FileSystem *FileSystem `json:"file_system" yaml:"file_system" mapstructure:"file_system"`
 }
 
 func Load(filename string) *Config {

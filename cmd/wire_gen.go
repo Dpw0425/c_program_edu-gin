@@ -57,9 +57,15 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		UserService:     userService,
 		EmailService:    serviceEmailService,
 	}
+	iFileSystem := provider.NewFileSystem(conf)
+	upload := &v1.Upload{
+		Config:     conf,
+		FileSystem: iFileSystem,
+	}
 	webV1 := &web.V1{
 		Common: common,
 		User:   user,
+		Upload: upload,
 	}
 	webHandler := &web.Handler{
 		V1: webV1,
@@ -86,4 +92,4 @@ func NewSQLInjector(conf *config.Config) *job.SQLProvider {
 
 // wire.go:
 
-var providerSet = wire.NewSet(provider.NewHttpClient, provider.NewRequestClient, provider.NewMysqlClient, provider.NewRedisClient, provider.NewEmailClient, service2.WebProviderSet, app.CacheProviderSet, app.RepoProviderSet)
+var providerSet = wire.NewSet(provider.NewHttpClient, provider.NewRequestClient, provider.NewMysqlClient, provider.NewRedisClient, provider.NewEmailClient, provider.NewFileSystem, service2.WebProviderSet, app.CacheProviderSet, app.RepoProviderSet)
