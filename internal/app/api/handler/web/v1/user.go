@@ -34,10 +34,12 @@ func (u *User) Register(ctx *ctx.Context) error {
 	}
 
 	if err := u.UserService.Register(ctx.Ctx(), &schema.UserRegister{
-		NickName: params.Nickname,
-		Password: params.Password,
-		Avatar:   params.Avatar,
-		Email:    params.Email,
+		UserName:  params.UserName,
+		Password:  params.Password,
+		StudentID: uint(params.StudentId),
+		Avatar:    params.Avatar,
+		Email:     params.Email,
+		Grade:     int(params.Grade),
 	}); err != nil {
 		return myErr.BadRequest("", "用户注册失败: %v", err)
 	}
@@ -106,11 +108,13 @@ func (u *User) Info(ctx *ctx.Context) error {
 	}
 
 	response.NorResponse(ctx.Context, &web.UserInfoResponse{
-		UserId:   result.UserID,
-		Nickname: result.NickName,
-		Email:    result.Email,
-		Avatar:   result.Avatar,
-		Status:   int32(result.Status),
+		UserId:    result.UserID,
+		UserName:  result.UserName,
+		StudentId: uint64(result.StudentID),
+		Email:     result.Email,
+		Avatar:    result.Avatar,
+		Grade:     int64(result.Grade),
+		Status:    int32(result.Status),
 	}, "登录成功！")
 	return nil
 }

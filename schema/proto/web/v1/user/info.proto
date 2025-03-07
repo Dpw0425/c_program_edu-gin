@@ -9,8 +9,10 @@ message UserInfoRequest{}
 
 message UserInfoResponse {
   int64 user_id = 1;
-  string nickname = 2;
-  string email = 3;
-  string avatar = 4;
-  int32 status = 5;
+  string user_name = 2;
+  uint64 student_id = 3;
+  string email = 4;
+  string avatar = 5;
+  int64 grade = 6;
+  int32 status = 7;
 }

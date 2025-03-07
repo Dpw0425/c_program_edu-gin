@@ -6,11 +6,13 @@ option go_package = "web/v1/user;web";
 import "third_party/tagger/tagger.proto";
 
 message UserRegisterRequest {
-  string nickname = 1 [(tagger.tags) = "binding:\"required\""];
+  string user_name = 1 [(tagger.tags) = "binding:\"required\""];
   string password = 2 [(tagger.tags) = "binding:\"required\""];
-  string avatar = 3 [(tagger.tags) = "binding:\"required\""];
-  string email = 4 [(tagger.tags) = "binding:\"required\""];
-  string verify_code = 5 [(tagger.tags) = "binding:\"required\""];
+  uint64 student_id = 3 [(tagger.tags) = "binding:\"required\""];
+  string avatar = 4 [(tagger.tags) = "binding:\"required\""];
+  string email = 5 [(tagger.tags) = "binding:\"required\""];
+  int64 grade = 6 [(tagger.tags) = "binding:\"required\""];
+  string verify_code = 7 [(tagger.tags) = "binding:\"required\""];
 }
 
 message UserRegisterResponse {}

@@ -57,13 +57,17 @@ func (m *UserRegisterRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Nickname
+	// no validation rules for UserName
 
 	// no validation rules for Password
+
+	// no validation rules for StudentId
 
 	// no validation rules for Avatar
 
 	// no validation rules for Email
+
+	// no validation rules for Grade
 
 	// no validation rules for VerifyCode
 

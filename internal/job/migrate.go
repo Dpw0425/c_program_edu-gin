@@ -25,9 +25,16 @@ func Run(ctx *cli.Context, app *SQLProvider) error {
 		logger.Errorf("Databases Import Failed: %s", err)
 		fmt.Println("正在自动生成数据库表...")
 		app.DB.AutoMigrate(&model.User{})
+		app.DB.AutoMigrate(&model.Admin{})
 		app.DB.AutoMigrate(&model.Question{})
 		app.DB.AutoMigrate(&model.TestData{})
+		app.DB.AutoMigrate(&model.QuestionBank{})
+		app.DB.AutoMigrate(&model.BankQue{})
 		app.DB.AutoMigrate(&model.UserQue{})
+		app.DB.AutoMigrate(&model.Competition{})
+		app.DB.AutoMigrate(&model.CptQue{})
+		app.DB.AutoMigrate(&model.Entry{})
+		app.DB.AutoMigrate(&model.Team{})
 		logger.Info("Databases Init Successful!")
 	}
 

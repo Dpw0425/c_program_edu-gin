@@ -30,11 +30,13 @@ func (u *UserService) Register(ctx context.Context, sur *schema.UserRegister) er
 	}
 
 	return u.UserRepo.Create(ctx, &model.User{
-		UserID:   generator.IDGenerator(),
-		NickName: sur.NickName,
-		Password: encrypt.HashPassword(sur.Password),
-		Avatar:   sur.Avatar,
-		Email:    sur.Email,
+		UserID:    generator.IDGenerator(),
+		UserName:  sur.UserName,
+		Password:  encrypt.HashPassword(sur.Password),
+		StudentID: sur.StudentID,
+		Avatar:    sur.Avatar,
+		Email:     sur.Email,
+		Grade:     sur.Grade,
 	})
 }
 

@@ -1,10 +1,12 @@
 package schema
 
 type UserRegister struct {
-	NickName string
-	Password string
-	Avatar   string
-	Email    string
+	UserName  string
+	Password  string
+	StudentID uint
+	Avatar    string
+	Email     string
+	Grade     int
 }
 
 type UserLogin struct {
