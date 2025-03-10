@@ -29,6 +29,10 @@ func (u *UserService) Register(ctx context.Context, sur *schema.UserRegister) er
 		return myErr.BadRequest("", "账号已存在！")
 	}
 
+	if u.UserRepo.IsStudentIDExist(ctx, sur.StudentID) {
+		return myErr.BadRequest("", "学号已被绑定！")
+	}
+
 	return u.UserRepo.Create(ctx, &model.User{
 		UserID:    generator.IDGenerator(),
 		UserName:  sur.UserName,

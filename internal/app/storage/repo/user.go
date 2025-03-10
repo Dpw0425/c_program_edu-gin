@@ -16,13 +16,19 @@ func NewUsers(db *gorm.DB) *UserRepo {
 	return &UserRepo{Repo: ctx.NewRepo[model.User](db)}
 }
 
-// 判断是否存在
+// 判断邮箱账号是否存在
 func (u *UserRepo) IsExist(ctx context.Context, email string) bool {
 	if len(email) == 0 {
 		return false
 	}
 
 	isExist, _ := u.Repo.IsExist(ctx, "email = ?", email)
+	return isExist
+}
+
+// 判断学号是否已经绑定
+func (u *UserRepo) IsStudentIDExist(ctx context.Context, sid uint) bool {
+	isExist, _ := u.Repo.IsExist(ctx, "student_id = ?", sid)
 	return isExist
 }
 
