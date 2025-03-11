@@ -1,0 +1,17 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/user;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AdminLoginRequest {
+  string user_name = 1 [(tagger.tags) = "binding:\"required\""];
+  string password = 2 [(tagger.tags) = "binding:\"required\""];
+}
+
+message AdminLoginResponse {
+  string type = 1;
+  string access_token = 2;
+  string expires_in = 3;
+}

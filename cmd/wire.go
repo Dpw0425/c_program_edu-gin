@@ -22,6 +22,7 @@ var providerSet = wire.NewSet(
 	provider.NewFileSystem,
 
 	service.WebProviderSet,
+	service.AdminProviderSet,
 	app.CacheProviderSet,
 	app.RepoProviderSet,
 )

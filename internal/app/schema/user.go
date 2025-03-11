@@ -3,7 +3,7 @@ package schema
 type UserRegister struct {
 	UserName  string
 	Password  string
-	StudentID uint
+	StudentID string
 	Avatar    string
 	Email     string
 	Grade     int

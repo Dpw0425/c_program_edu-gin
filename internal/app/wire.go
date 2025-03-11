@@ -18,4 +18,5 @@ var CacheProviderSet = wire.NewSet(
 
 var RepoProviderSet = wire.NewSet(
 	repo.NewUsers,
+	repo.NewAdmins,
 )

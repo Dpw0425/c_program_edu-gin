@@ -44,6 +44,7 @@ func NewRouter(conf *config.Config, handler *handler.Handler, session *cache.Jwt
 	})
 
 	RegisterWebRouter(conf.Jwt.Secret, router, handler.Web, session)
+	RegisterAdminRouter(conf.Jwt.Secret, router, handler.Admin, session)
 
 	return router
 }

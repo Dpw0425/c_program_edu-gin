@@ -36,7 +36,7 @@ func (u *User) Register(ctx *ctx.Context) error {
 	if err := u.UserService.Register(ctx.Ctx(), &schema.UserRegister{
 		UserName:  params.UserName,
 		Password:  params.Password,
-		StudentID: uint(params.StudentId),
+		StudentID: params.StudentId,
 		Avatar:    params.Avatar,
 		Email:     params.Email,
 		Grade:     int(params.Grade),
@@ -110,7 +110,7 @@ func (u *User) Info(ctx *ctx.Context) error {
 	response.NorResponse(ctx.Context, &web.UserInfoResponse{
 		UserId:    result.UserID,
 		UserName:  result.UserName,
-		StudentId: uint64(result.StudentID),
+		StudentId: result.StudentID,
 		Email:     result.Email,
 		Avatar:    result.Avatar,
 		Grade:     int64(result.Grade),

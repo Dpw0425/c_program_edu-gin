@@ -2,6 +2,7 @@ package api
 
 import (
 	"c_program_edu-gin/internal/app/api/handler"
+	"c_program_edu-gin/internal/app/api/handler/admin"
 	"c_program_edu-gin/internal/app/api/handler/web"
 	"c_program_edu-gin/internal/app/api/router"
 	"c_program_edu-gin/internal/config"
@@ -19,6 +20,7 @@ var ProviderSet = wire.NewSet(
 
 	handler.ProviderSet,
 	web.ProviderSet,
+	admin.ProviderSet,
 
 	wire.Struct(new(AppProvider), "*"),
 )

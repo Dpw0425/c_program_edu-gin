@@ -27,7 +27,7 @@ func (u *UserRepo) IsExist(ctx context.Context, email string) bool {
 }
 
 // 判断学号是否已经绑定
-func (u *UserRepo) IsStudentIDExist(ctx context.Context, sid uint) bool {
+func (u *UserRepo) IsStudentIDExist(ctx context.Context, sid string) bool {
 	isExist, _ := u.Repo.IsExist(ctx, "student_id = ?", sid)
 	return isExist
 }
