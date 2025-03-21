@@ -44,3 +44,12 @@ func NewSQLInjector(conf *config.Config) *job.SQLProvider {
 		),
 	)
 }
+
+func NewAdminInjector(conf *config.Config) *job.AdminProvider {
+	panic(
+		wire.Build(
+			providerSet,
+			app.AdminProviderSet,
+		),
+	)
+}

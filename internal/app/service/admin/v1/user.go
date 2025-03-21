@@ -21,7 +21,7 @@ type AdminService struct {
 }
 
 func (a *AdminService) Login(ctx context.Context, sal *schema.AdminLogin) (*model.Admin, error) {
-	admin, err := a.AdminRepo.FindByUserName(ctx, sal.UserName)
+	admin, err := a.AdminRepo.FindByTeacherID(ctx, sal.UserName)
 	if err != nil {
 		if myErr.Equal(err, gorm.ErrRecordNotFound) {
 			return nil, myErr.BadRequest("", "账号不存在！")

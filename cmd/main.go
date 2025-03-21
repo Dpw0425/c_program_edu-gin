@@ -32,9 +32,21 @@ func NewSQLCommand() app.Command {
 	}
 }
 
+func NewAdminCommand() app.Command {
+	return app.Command{
+		Name:  "admin",
+		Usage: "admin command - 后台管理初始化",
+		Action: func(ctx *cli.Context, conf *config.Config) error {
+			logger.InitLogger(fmt.Sprintf("%s/logs/app_log", conf.Log.Path), "admin")
+			return job.InitAdmin(ctx, NewAdminInjector(conf))
+		},
+	}
+}
+
 func main() {
 	newApp := app.NewApp()
 	newApp.Register(NewHttpCommand())
 	newApp.Register(NewSQLCommand())
+	newApp.Register(NewAdminCommand())
 	newApp.Run()
 }

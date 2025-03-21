@@ -109,6 +109,15 @@ func NewSQLInjector(conf *config.Config) *job.SQLProvider {
 	return sqlProvider
 }
 
+func NewAdminInjector(conf *config.Config) *job.AdminProvider {
+	db := provider.NewMysqlClient(conf)
+	adminProvider := &job.AdminProvider{
+		Config: conf,
+		DB:     db,
+	}
+	return adminProvider
+}
+
 // wire.go:
 
 var providerSet = wire.NewSet(provider.NewHttpClient, provider.NewRequestClient, provider.NewMysqlClient, provider.NewRedisClient, provider.NewEmailClient, provider.NewFileSystem, service2.WebProviderSet, service2.AdminProviderSet, app.CacheProviderSet, app.RepoProviderSet)

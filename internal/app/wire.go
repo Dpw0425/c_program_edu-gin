@@ -11,6 +11,10 @@ var SQLProviderSet = wire.NewSet(
 	wire.Struct(new(job.SQLProvider), "*"),
 )
 
+var AdminProviderSet = wire.NewSet(
+	wire.Struct(new(job.AdminProvider), "*"),
+)
+
 var CacheProviderSet = wire.NewSet(
 	cache.NewEmailStorage,
 	cache.NewTokenSessionStorage,

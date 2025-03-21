@@ -15,6 +15,6 @@ func NewAdmins(db *gorm.DB) *AdminRepo {
 	return &AdminRepo{Repo: ctx.NewRepo[model.Admin](db)}
 }
 
-func (a *AdminRepo) FindByUserName(ctx context.Context, username string) (*model.Admin, error) {
-	return a.Repo.FindByWhere(ctx, "user_name = ?", username)
+func (a *AdminRepo) FindByTeacherID(ctx context.Context, username string) (*model.Admin, error) {
+	return a.Repo.FindByWhere(ctx, "teacher_id = ?", username)
 }

@@ -48,3 +48,7 @@ file_system:
     bucket_private: "private"
     endpoint: "http://localhost:8080"
     ssl: false
+
+admin:
+  user_name: "admin"
+  password: "123456"

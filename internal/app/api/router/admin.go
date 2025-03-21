@@ -9,9 +9,9 @@ import (
 
 func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handler, storage middleware.IStorage) {
 	// 鉴权中间件
-	authorizer := middleware.Auth(secret, "user", storage)
+	authorizer := middleware.Auth(secret, "admin", storage)
 
-	v1 := router.Group("/user/v1")
+	v1 := router.Group("/admin/v1")
 	{
 		index := v1.Group("/index").Use(authorizer)
 		{

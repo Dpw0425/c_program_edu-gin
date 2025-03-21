@@ -19,6 +19,7 @@ type Config struct {
 	Redis      *Redis      `json_utils:"redis" yaml:"redis" mapstructure:"redis"`
 	Email      *Email      `json_utils:"email" yaml:"email" mapstructure:"email"`
 	FileSystem *FileSystem `json:"file_system" yaml:"file_system" mapstructure:"file_system"`
+	Admin      *Admin      `json:"admin" yaml:"admin" mapstructure:"admin"`
 }
 
 func Load(filename string) *Config {
