@@ -1,0 +1,15 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/user;admin";
+
+// import "third_party/tagger/tagger.proto";
+
+message AdminInfoRequest{}
+
+message AdminInfoResponse {
+  string user_name = 1;
+  string teacher_id = 2;
+  repeated string permission = 3;
+  int32 status = 4;
+}

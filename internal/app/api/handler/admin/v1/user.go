@@ -3,7 +3,7 @@ package v1
 import (
 	"c_program_edu-gin/internal/app/schema"
 	adminservice "c_program_edu-gin/internal/app/service/admin/v1"
-	"c_program_edu-gin/internal/app/storage/repo"
+	"c_program_edu-gin/internal/app/storage/cache"
 	"c_program_edu-gin/internal/config"
 	ctx "c_program_edu-gin/internal/pkg/context"
 	myErr "c_program_edu-gin/pkg/error"
@@ -11,13 +11,14 @@ import (
 	"c_program_edu-gin/pkg/response"
 	admin "c_program_edu-gin/schema/genproto/admin/v1/user"
 	"strconv"
+	"strings"
 	"time"
 )
 
 type Admin struct {
-	Config       *config.Config
-	AdminRepo    *repo.AdminRepo
-	AdminService adminservice.AdminService
+	Config          *config.Config
+	JwtTokenStorage *cache.JwtTokenStorage
+	AdminService    adminservice.AdminService
 }
 
 func (a *Admin) Login(ctx *ctx.Context) error {
@@ -54,4 +55,35 @@ func (a *Admin) token(uid int64) string {
 	})
 
 	return token
+}
+
+func (a *Admin) Logout(ctx *ctx.Context) error {
+	a.toBlackList(ctx)
+
+	response.NorResponse(ctx.Context, &admin.AdminLogoutResponse{}, "退出成功！")
+	return nil
+}
+
+func (a *Admin) toBlackList(ctx *ctx.Context) {
+	session := ctx.JWTSession()
+	if session != nil {
+		if ex := session.ExpiresAt - time.Now().Unix(); ex > 0 {
+			_ = a.JwtTokenStorage.SetBlackList(ctx.Ctx(), session.Token, time.Duration(ex)*time.Second)
+		}
+	}
+}
+
+func (a *Admin) Info(ctx *ctx.Context) error {
+	result, err := a.AdminService.GetAdminByID(ctx.Ctx(), uint(ctx.UserID()))
+	if err != nil {
+		return err
+	}
+
+	response.NorResponse(ctx.Context, &admin.AdminInfoResponse{
+		UserName:   result.UserName,
+		TeacherId:  result.TeacherID,
+		Permission: strings.Split(result.Permission, ","),
+		Status:     int32(result.Status),
+	}, "登录成功！")
+	return nil
 }

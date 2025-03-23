@@ -78,9 +78,9 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		AdminRepo: adminRepo,
 	}
 	v1Admin := &v1_2.Admin{
-		Config:       conf,
-		AdminRepo:    adminRepo,
-		AdminService: adminService,
+		Config:          conf,
+		JwtTokenStorage: jwtTokenStorage,
+		AdminService:    adminService,
 	}
 	adminV1 := &admin.V1{
 		Admin: v1Admin,

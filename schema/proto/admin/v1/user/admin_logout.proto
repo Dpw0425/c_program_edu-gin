@@ -1,0 +1,10 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/user;admin";
+
+// import "third_party/tagger/tagger.proto";
+
+message AdminLogoutRequest {}
+
+message AdminLogoutResponse {}

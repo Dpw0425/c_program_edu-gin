@@ -35,3 +35,29 @@ func (a *AdminService) Login(ctx context.Context, sal *schema.AdminLogin) (*mode
 	}
 	return admin, nil
 }
+
+func (a *AdminService) GetAdminByTeacherID(ctx context.Context, TeacherID string) (*model.Admin, error) {
+	admin, err := a.AdminRepo.FindByTeacherID(ctx, TeacherID)
+	if err != nil {
+		if myErr.Equal(err, gorm.ErrRecordNotFound) {
+			return nil, myErr.BadRequest("", "账号不存在！")
+		}
+
+		return nil, myErr.BadRequest("", err.Error())
+	}
+
+	return admin, nil
+}
+
+func (a *AdminService) GetAdminByID(ctx context.Context, UserID uint) (*model.Admin, error) {
+	admin, err := a.AdminRepo.FindByID(ctx, UserID)
+	if err != nil {
+		if myErr.Equal(err, gorm.ErrRecordNotFound) {
+			return nil, myErr.BadRequest("", "账号不存在！")
+		}
+
+		return nil, myErr.BadRequest("", err.Error())
+	}
+
+	return admin, nil
+}
