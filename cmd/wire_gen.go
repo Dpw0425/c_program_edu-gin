@@ -82,8 +82,18 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		JwtTokenStorage: jwtTokenStorage,
 		AdminService:    adminService,
 	}
+	question := &v1_2.Question{}
+	tagRepo := repo.NewTags(db)
+	tagService := admin_service.TagService{
+		TagRepo: tagRepo,
+	}
+	tag := &v1_2.Tag{
+		TagService: tagService,
+	}
 	adminV1 := &admin.V1{
-		Admin: v1Admin,
+		Admin:    v1Admin,
+		Question: question,
+		Tag:      tag,
 	}
 	adminHandler := &admin.Handler{
 		V1: adminV1,

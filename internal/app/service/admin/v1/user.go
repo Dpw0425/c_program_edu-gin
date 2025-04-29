@@ -14,6 +14,8 @@ var _ IAdminService = (*AdminService)(nil)
 
 type IAdminService interface {
 	Login(ctx context.Context, login *schema.AdminLogin) (*model.Admin, error)
+	GetAdminByTeacherID(ctx context.Context, TeacherID string) (*model.Admin, error)
+	GetAdminByID(ctx context.Context, UserID uint) (*model.Admin, error)
 }
 
 type AdminService struct {

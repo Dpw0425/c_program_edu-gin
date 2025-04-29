@@ -28,5 +28,15 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 				userAuth.GET("/logout", ctx.HandlerFunc(handler.V1.Admin.Logout))
 			}
 		}
+
+		tag := v1.Group("/tag").Use(authorizer)
+		{
+			tag.POST("/add", ctx.HandlerFunc(handler.V1.Tag.Add))
+		}
+
+		question := v1.Group("/question")
+		{
+			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))
+		}
 	}
 }

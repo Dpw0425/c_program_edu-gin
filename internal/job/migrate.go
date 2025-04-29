@@ -35,6 +35,7 @@ func Run(ctx *cli.Context, app *SQLProvider) error {
 		app.DB.AutoMigrate(&model.CptQue{})
 		app.DB.AutoMigrate(&model.Entry{})
 		app.DB.AutoMigrate(&model.Team{})
+		app.DB.AutoMigrate(&model.Tag{})
 		logger.Info("Databases Init Successful!")
 	}
 

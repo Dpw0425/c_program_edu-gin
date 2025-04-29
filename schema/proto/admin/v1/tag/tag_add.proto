@@ -1,0 +1,12 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/tag;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AddTagRequest {
+  string name = 1 [(tagger.tags) = "binding:\"required\""];
+}
+
+message AddTagResponse {}
