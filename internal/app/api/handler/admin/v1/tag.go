@@ -28,11 +28,11 @@ func (t *Tag) Add(ctx *ctx.Context) error {
 
 func (t *Tag) List(ctx *ctx.Context) error {
 	params := &admin.TagListRequest{}
-	if err := ctx.Context.ShouldBind(&params); err != nil {
+	if err := ctx.Context.ShouldBindQuery(params); err != nil {
 		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
 	}
 
-	list, err := t.TagService.List(ctx.Ctx(), params.Search)
+	list, err := t.TagService.List(ctx.Ctx(), params)
 	if err != nil {
 		return err
 	}
@@ -40,6 +40,7 @@ func (t *Tag) List(ctx *ctx.Context) error {
 	items := make([]*admin.TagListResponse_TagItem, 0, len(list))
 	for _, item := range list {
 		items = append(items, &admin.TagListResponse_TagItem{
+			Id:    int32(item.ID),
 			Name:  item.Name,
 			Count: int32(item.Count),
 		})

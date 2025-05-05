@@ -5,6 +5,7 @@ import (
 	"c_program_edu-gin/internal/app/storage/model"
 	"c_program_edu-gin/internal/app/storage/repo"
 	myErr "c_program_edu-gin/pkg/error"
+	admin "c_program_edu-gin/schema/genproto/admin/v1/tag"
 	"context"
 )
 
@@ -12,7 +13,7 @@ var _ ITagService = (*TagService)(nil)
 
 type ITagService interface {
 	Add(ctx context.Context, name string) error
-	List(ctx context.Context, search string) ([]*schema.TagItem, error)
+	List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, error)
 }
 
 type TagService struct {
@@ -29,11 +30,11 @@ func (t *TagService) Add(ctx context.Context, name string) error {
 	})
 }
 
-func (t *TagService) List(ctx context.Context, search string) ([]*schema.TagItem, error) {
+func (t *TagService) List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, error) {
 	db := t.TagRepo.DB.WithContext(ctx)
 	var items []*schema.TagItem
 
-	err := db.Table("tags").Select("name").Where("name LIKE ?", "%"+search+"%").Scan(&items).Error
+	err := db.Table("tags").Select("id", "name").Where("name LIKE ?", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
 	if err != nil {
 		return nil, myErr.NotFound("", err.Error())
 	}

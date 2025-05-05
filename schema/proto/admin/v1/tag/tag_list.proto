@@ -6,13 +6,16 @@ option go_package = "admin/v1/tag;admin";
 import "third_party/tagger/tagger.proto";
 
 message TagListRequest {
-  string search = 1;
+  string search = 1 [(tagger.tags) = "form:\"search\""];
+  int32 page = 2 [(tagger.tags) = "form:\"page\""];
+  int32 number = 3 [(tagger.tags) = "form:\"number\""];
 }
 
 message TagListResponse {
   message TagItem {
-    string name = 1 [(tagger.tags) = "binding:\"required\""];
-    int32 count = 2 [(tagger.tags) = "binding:\"required\""];
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string name = 2 [(tagger.tags) = "binding:\"required\""];
+    int32 count = 3 [(tagger.tags) = "binding:\"required\""];
   }
 
   repeated TagItem tag_list = 1 [(tagger.tags) = "binding:\"required\""];

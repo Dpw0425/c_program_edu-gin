@@ -59,6 +59,10 @@ func (m *TagListRequest) validate(all bool) error {
 
 	// no validation rules for Search
 
+	// no validation rules for Page
+
+	// no validation rules for Number
+
 	if len(errors) > 0 {
 		return TagListRequestMultiError(errors)
 	}
@@ -294,6 +298,8 @@ func (m *TagListResponse_TagItem) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
 
 	// no validation rules for Name
 
