@@ -32,9 +32,10 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 		tag := v1.Group("/tag").Use(authorizer)
 		{
 			tag.POST("/add", ctx.HandlerFunc(handler.V1.Tag.Add))
+			tag.GET("/list", ctx.HandlerFunc(handler.V1.Tag.List))
 		}
 
-		question := v1.Group("/question")
+		question := v1.Group("/question").Use(authorizer)
 		{
 			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))
 		}

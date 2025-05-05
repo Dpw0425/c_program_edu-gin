@@ -1,0 +1,20 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/tag;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message TagListRequest {
+  string search = 1;
+}
+
+message TagListResponse {
+  message TagItem {
+    string name = 1 [(tagger.tags) = "binding:\"required\""];
+    int32 count = 2 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated TagItem tag_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}
