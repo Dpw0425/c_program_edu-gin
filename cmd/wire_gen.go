@@ -65,10 +65,18 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		Config:     conf,
 		FileSystem: iFileSystem,
 	}
+	questionRepo := repo.NewQuestions(db)
+	questionService := service.QuestionService{
+		QuestionRepo: questionRepo,
+	}
+	question := &v1.Question{
+		QuestionService: questionService,
+	}
 	webV1 := &web.V1{
-		Common: common,
-		User:   user,
-		Upload: upload,
+		Common:   common,
+		User:     user,
+		Upload:   upload,
+		Question: question,
 	}
 	webHandler := &web.Handler{
 		V1: webV1,
@@ -82,12 +90,11 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		JwtTokenStorage: jwtTokenStorage,
 		AdminService:    adminService,
 	}
-	questionRepo := repo.NewQuestions(db)
-	questionService := admin_service.QuestionService{
+	admin_serviceQuestionService := admin_service.QuestionService{
 		QuestionRepo: questionRepo,
 	}
-	question := &v1_2.Question{
-		QuestionService: questionService,
+	v1Question := &v1_2.Question{
+		QuestionService: admin_serviceQuestionService,
 	}
 	tagRepo := repo.NewTags(db)
 	tagService := admin_service.TagService{
@@ -98,7 +105,7 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	}
 	adminV1 := &admin.V1{
 		Admin:    v1Admin,
-		Question: question,
+		Question: v1Question,
 		Tag:      tag,
 	}
 	adminHandler := &admin.Handler{

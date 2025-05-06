@@ -32,5 +32,10 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 				userAuth.DELETE("/logout", ctx.HandlerFunc(handler.V1.User.Logout)) // 退出登录
 			}
 		}
+
+		question := v1.Group("/question")
+		{
+			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List)) // 题目列表
+		}
 	}
 }

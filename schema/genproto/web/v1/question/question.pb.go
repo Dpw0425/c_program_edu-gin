@@ -4,7 +4,7 @@
 // 	protoc        v5.27.0
 // source: question.proto
 
-package admin
+package web
 
 import (
 	_ "github.com/srikrsna/protoc-gen-gotag/tagger"
@@ -21,7 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type QuestionListRequest struct {
+type GetQuestionListRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -31,23 +31,23 @@ type QuestionListRequest struct {
 	Number int32  `protobuf:"varint,3,opt,name=number,proto3" json:"number,omitempty" form:"number"`
 }
 
-func (x *QuestionListRequest) Reset() {
-	*x = QuestionListRequest{}
+func (x *GetQuestionListRequest) Reset() {
+	*x = GetQuestionListRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_question_list_proto_msgTypes[0]
+		mi := &file_question_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *QuestionListRequest) String() string {
+func (x *GetQuestionListRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*QuestionListRequest) ProtoMessage() {}
+func (*GetQuestionListRequest) ProtoMessage() {}
 
-func (x *QuestionListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_question_list_proto_msgTypes[0]
+func (x *GetQuestionListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_question_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,58 +58,58 @@ func (x *QuestionListRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use QuestionListRequest.ProtoReflect.Descriptor instead.
-func (*QuestionListRequest) Descriptor() ([]byte, []int) {
-	return file_question_list_proto_rawDescGZIP(), []int{0}
+// Deprecated: Use GetQuestionListRequest.ProtoReflect.Descriptor instead.
+func (*GetQuestionListRequest) Descriptor() ([]byte, []int) {
+	return file_question_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *QuestionListRequest) GetSearch() string {
+func (x *GetQuestionListRequest) GetSearch() string {
 	if x != nil {
 		return x.Search
 	}
 	return ""
 }
 
-func (x *QuestionListRequest) GetPage() int32 {
+func (x *GetQuestionListRequest) GetPage() int32 {
 	if x != nil {
 		return x.Page
 	}
 	return 0
 }
 
-func (x *QuestionListRequest) GetNumber() int32 {
+func (x *GetQuestionListRequest) GetNumber() int32 {
 	if x != nil {
 		return x.Number
 	}
 	return 0
 }
 
-type QuestionListResponse struct {
+type GetQuestionListResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	QuestionList []*QuestionListResponse_QuestionItem `protobuf:"bytes,1,rep,name=question_list,json=questionList,proto3" json:"question_list,omitempty" binding:"required"`
-	Total        int32                                `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty" binding:"required"`
+	QuestionList []*GetQuestionListResponse_QuestionItem `protobuf:"bytes,1,rep,name=question_list,json=questionList,proto3" json:"question_list,omitempty" binding:"required"`
+	Total        int32                                   `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty" binding:"required"`
 }
 
-func (x *QuestionListResponse) Reset() {
-	*x = QuestionListResponse{}
+func (x *GetQuestionListResponse) Reset() {
+	*x = GetQuestionListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_question_list_proto_msgTypes[1]
+		mi := &file_question_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *QuestionListResponse) String() string {
+func (x *GetQuestionListResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*QuestionListResponse) ProtoMessage() {}
+func (*GetQuestionListResponse) ProtoMessage() {}
 
-func (x *QuestionListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_question_list_proto_msgTypes[1]
+func (x *GetQuestionListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_question_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -120,26 +120,26 @@ func (x *QuestionListResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use QuestionListResponse.ProtoReflect.Descriptor instead.
-func (*QuestionListResponse) Descriptor() ([]byte, []int) {
-	return file_question_list_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use GetQuestionListResponse.ProtoReflect.Descriptor instead.
+func (*GetQuestionListResponse) Descriptor() ([]byte, []int) {
+	return file_question_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *QuestionListResponse) GetQuestionList() []*QuestionListResponse_QuestionItem {
+func (x *GetQuestionListResponse) GetQuestionList() []*GetQuestionListResponse_QuestionItem {
 	if x != nil {
 		return x.QuestionList
 	}
 	return nil
 }
 
-func (x *QuestionListResponse) GetTotal() int32 {
+func (x *GetQuestionListResponse) GetTotal() int32 {
 	if x != nil {
 		return x.Total
 	}
 	return 0
 }
 
-type QuestionListResponse_QuestionItem struct {
+type GetQuestionListResponse_QuestionItem struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -152,23 +152,23 @@ type QuestionListResponse_QuestionItem struct {
 	OwnerId     int32    `protobuf:"varint,6,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty" binding:"required"`
 }
 
-func (x *QuestionListResponse_QuestionItem) Reset() {
-	*x = QuestionListResponse_QuestionItem{}
+func (x *GetQuestionListResponse_QuestionItem) Reset() {
+	*x = GetQuestionListResponse_QuestionItem{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_question_list_proto_msgTypes[2]
+		mi := &file_question_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *QuestionListResponse_QuestionItem) String() string {
+func (x *GetQuestionListResponse_QuestionItem) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*QuestionListResponse_QuestionItem) ProtoMessage() {}
+func (*GetQuestionListResponse_QuestionItem) ProtoMessage() {}
 
-func (x *QuestionListResponse_QuestionItem) ProtoReflect() protoreflect.Message {
-	mi := &file_question_list_proto_msgTypes[2]
+func (x *GetQuestionListResponse_QuestionItem) ProtoReflect() protoreflect.Message {
+	mi := &file_question_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -179,73 +179,73 @@ func (x *QuestionListResponse_QuestionItem) ProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use QuestionListResponse_QuestionItem.ProtoReflect.Descriptor instead.
-func (*QuestionListResponse_QuestionItem) Descriptor() ([]byte, []int) {
-	return file_question_list_proto_rawDescGZIP(), []int{1, 0}
+// Deprecated: Use GetQuestionListResponse_QuestionItem.ProtoReflect.Descriptor instead.
+func (*GetQuestionListResponse_QuestionItem) Descriptor() ([]byte, []int) {
+	return file_question_proto_rawDescGZIP(), []int{1, 0}
 }
 
-func (x *QuestionListResponse_QuestionItem) GetId() int32 {
+func (x *GetQuestionListResponse_QuestionItem) GetId() int32 {
 	if x != nil {
 		return x.Id
 	}
 	return 0
 }
 
-func (x *QuestionListResponse_QuestionItem) GetTitle() string {
+func (x *GetQuestionListResponse_QuestionItem) GetTitle() string {
 	if x != nil {
 		return x.Title
 	}
 	return ""
 }
 
-func (x *QuestionListResponse_QuestionItem) GetTag() []string {
+func (x *GetQuestionListResponse_QuestionItem) GetTag() []string {
 	if x != nil {
 		return x.Tag
 	}
 	return nil
 }
 
-func (x *QuestionListResponse_QuestionItem) GetDegree() int32 {
+func (x *GetQuestionListResponse_QuestionItem) GetDegree() int32 {
 	if x != nil {
 		return x.Degree
 	}
 	return 0
 }
 
-func (x *QuestionListResponse_QuestionItem) GetPassingRate() float32 {
+func (x *GetQuestionListResponse_QuestionItem) GetPassingRate() float32 {
 	if x != nil {
 		return x.PassingRate
 	}
 	return 0
 }
 
-func (x *QuestionListResponse_QuestionItem) GetOwnerId() int32 {
+func (x *GetQuestionListResponse_QuestionItem) GetOwnerId() int32 {
 	if x != nil {
 		return x.OwnerId
 	}
 	return 0
 }
 
-var File_question_list_proto protoreflect.FileDescriptor
+var File_question_proto protoreflect.FileDescriptor
 
-var file_question_list_proto_rawDesc = []byte{
-	0x0a, 0x13, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x05, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x1a, 0x1f, 0x74, 0x68,
-	0x69, 0x72, 0x64, 0x5f, 0x70, 0x61, 0x72, 0x74, 0x79, 0x2f, 0x74, 0x61, 0x67, 0x67, 0x65, 0x72,
-	0x2f, 0x74, 0x61, 0x67, 0x67, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x93, 0x01,
-	0x0a, 0x13, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2a, 0x0a, 0x06, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x12, 0x9a, 0x84, 0x9e, 0x03, 0x0d, 0x66, 0x6f, 0x72, 0x6d,
-	0x3a, 0x22, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x22, 0x52, 0x06, 0x73, 0x65, 0x61, 0x72, 0x63,
-	0x68, 0x12, 0x24, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x42,
-	0x10, 0x9a, 0x84, 0x9e, 0x03, 0x0b, 0x66, 0x6f, 0x72, 0x6d, 0x3a, 0x22, 0x70, 0x61, 0x67, 0x65,
-	0x22, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x2a, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65,
-	0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05, 0x42, 0x12, 0x9a, 0x84, 0x9e, 0x03, 0x0d, 0x66, 0x6f,
-	0x72, 0x6d, 0x3a, 0x22, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x52, 0x06, 0x6e, 0x75, 0x6d,
-	0x62, 0x65, 0x72, 0x22, 0xe2, 0x03, 0x0a, 0x14, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e,
-	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x66, 0x0a, 0x0d,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x51, 0x75, 0x65, 0x73,
+var file_question_proto_rawDesc = []byte{
+	0x0a, 0x0e, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x12, 0x03, 0x77, 0x65, 0x62, 0x1a, 0x1f, 0x74, 0x68, 0x69, 0x72, 0x64, 0x5f, 0x70, 0x61, 0x72,
+	0x74, 0x79, 0x2f, 0x74, 0x61, 0x67, 0x67, 0x65, 0x72, 0x2f, 0x74, 0x61, 0x67, 0x67, 0x65, 0x72,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x96, 0x01, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x51, 0x75,
+	0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x2a, 0x0a, 0x06, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x42, 0x12, 0x9a, 0x84, 0x9e, 0x03, 0x0d, 0x66, 0x6f, 0x72, 0x6d, 0x3a, 0x22, 0x73, 0x65,
+	0x61, 0x72, 0x63, 0x68, 0x22, 0x52, 0x06, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x12, 0x24, 0x0a,
+	0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x42, 0x10, 0x9a, 0x84, 0x9e,
+	0x03, 0x0b, 0x66, 0x6f, 0x72, 0x6d, 0x3a, 0x22, 0x70, 0x61, 0x67, 0x65, 0x22, 0x52, 0x04, 0x70,
+	0x61, 0x67, 0x65, 0x12, 0x2a, 0x0a, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x05, 0x42, 0x12, 0x9a, 0x84, 0x9e, 0x03, 0x0d, 0x66, 0x6f, 0x72, 0x6d, 0x3a, 0x22,
+	0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x52, 0x06, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22,
+	0xe6, 0x03, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x67, 0x0a, 0x0d, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x29, 0x2e, 0x77, 0x65, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x51, 0x75, 0x65, 0x73,
 	0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x2e, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x74, 0x65, 0x6d, 0x42, 0x17, 0x9a,
 	0x84, 0x9e, 0x03, 0x12, 0x62, 0x69, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x3a, 0x22, 0x72, 0x65, 0x71,
@@ -272,31 +272,31 @@ var file_question_list_proto_rawDesc = []byte{
 	0x52, 0x61, 0x74, 0x65, 0x12, 0x32, 0x0a, 0x08, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x5f, 0x69, 0x64,
 	0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x42, 0x17, 0x9a, 0x84, 0x9e, 0x03, 0x12, 0x62, 0x69, 0x6e,
 	0x64, 0x69, 0x6e, 0x67, 0x3a, 0x22, 0x72, 0x65, 0x71, 0x75, 0x69, 0x72, 0x65, 0x64, 0x22, 0x52,
-	0x07, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x49, 0x64, 0x42, 0x19, 0x5a, 0x17, 0x61, 0x64, 0x6d, 0x69,
-	0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x3b, 0x61, 0x64,
-	0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x07, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x49, 0x64, 0x42, 0x15, 0x5a, 0x13, 0x77, 0x65, 0x62, 0x2f,
+	0x76, 0x31, 0x2f, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x3b, 0x77, 0x65, 0x62, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_question_list_proto_rawDescOnce sync.Once
-	file_question_list_proto_rawDescData = file_question_list_proto_rawDesc
+	file_question_proto_rawDescOnce sync.Once
+	file_question_proto_rawDescData = file_question_proto_rawDesc
 )
 
-func file_question_list_proto_rawDescGZIP() []byte {
-	file_question_list_proto_rawDescOnce.Do(func() {
-		file_question_list_proto_rawDescData = protoimpl.X.CompressGZIP(file_question_list_proto_rawDescData)
+func file_question_proto_rawDescGZIP() []byte {
+	file_question_proto_rawDescOnce.Do(func() {
+		file_question_proto_rawDescData = protoimpl.X.CompressGZIP(file_question_proto_rawDescData)
 	})
-	return file_question_list_proto_rawDescData
+	return file_question_proto_rawDescData
 }
 
-var file_question_list_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_question_list_proto_goTypes = []interface{}{
-	(*QuestionListRequest)(nil),               // 0: admin.QuestionListRequest
-	(*QuestionListResponse)(nil),              // 1: admin.QuestionListResponse
-	(*QuestionListResponse_QuestionItem)(nil), // 2: admin.QuestionListResponse.QuestionItem
+var file_question_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_question_proto_goTypes = []interface{}{
+	(*GetQuestionListRequest)(nil),               // 0: web.GetQuestionListRequest
+	(*GetQuestionListResponse)(nil),              // 1: web.GetQuestionListResponse
+	(*GetQuestionListResponse_QuestionItem)(nil), // 2: web.GetQuestionListResponse.QuestionItem
 }
-var file_question_list_proto_depIdxs = []int32{
-	2, // 0: admin.QuestionListResponse.question_list:type_name -> admin.QuestionListResponse.QuestionItem
+var file_question_proto_depIdxs = []int32{
+	2, // 0: web.GetQuestionListResponse.question_list:type_name -> web.GetQuestionListResponse.QuestionItem
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -304,14 +304,14 @@ var file_question_list_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_question_list_proto_init() }
-func file_question_list_proto_init() {
-	if File_question_list_proto != nil {
+func init() { file_question_proto_init() }
+func file_question_proto_init() {
+	if File_question_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_question_list_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QuestionListRequest); i {
+		file_question_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetQuestionListRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -322,8 +322,8 @@ func file_question_list_proto_init() {
 				return nil
 			}
 		}
-		file_question_list_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QuestionListResponse); i {
+		file_question_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetQuestionListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -334,8 +334,8 @@ func file_question_list_proto_init() {
 				return nil
 			}
 		}
-		file_question_list_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*QuestionListResponse_QuestionItem); i {
+		file_question_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetQuestionListResponse_QuestionItem); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -351,18 +351,18 @@ func file_question_list_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_question_list_proto_rawDesc,
+			RawDescriptor: file_question_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_question_list_proto_goTypes,
-		DependencyIndexes: file_question_list_proto_depIdxs,
-		MessageInfos:      file_question_list_proto_msgTypes,
+		GoTypes:           file_question_proto_goTypes,
+		DependencyIndexes: file_question_proto_depIdxs,
+		MessageInfos:      file_question_proto_msgTypes,
 	}.Build()
-	File_question_list_proto = out.File
-	file_question_list_proto_rawDesc = nil
-	file_question_list_proto_goTypes = nil
-	file_question_list_proto_depIdxs = nil
+	File_question_proto = out.File
+	file_question_proto_rawDesc = nil
+	file_question_proto_goTypes = nil
+	file_question_proto_depIdxs = nil
 }
