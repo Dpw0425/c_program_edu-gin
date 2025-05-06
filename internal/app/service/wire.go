@@ -23,4 +23,7 @@ var AdminProviderSet = wire.NewSet(
 
 	wire.Struct(new(adminservice.TagService), "*"),
 	wire.Bind(new(adminservice.ITagService), new(*adminservice.TagService)),
+
+	wire.Struct(new(adminservice.QuestionService), "*"),
+	wire.Bind(new(adminservice.IQuestionService), new(*adminservice.QuestionService)),
 )

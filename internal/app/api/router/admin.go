@@ -38,6 +38,7 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 		question := v1.Group("/question").Use(authorizer)
 		{
 			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))
+			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List))
 		}
 	}
 }

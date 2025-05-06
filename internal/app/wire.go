@@ -24,4 +24,5 @@ var RepoProviderSet = wire.NewSet(
 	repo.NewUsers,
 	repo.NewAdmins,
 	repo.NewTags,
+	repo.NewQuestions,
 )
