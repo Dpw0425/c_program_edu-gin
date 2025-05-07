@@ -18,7 +18,7 @@ func (a *Auth) UserList(ctx *ctx.Context) error {
 		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
 	}
 
-	list, err := a.AuthService.UserList(ctx.Ctx(), params)
+	list, count, err := a.AuthService.UserList(ctx.Ctx(), params)
 	if err != nil {
 		return err
 	}
@@ -36,7 +36,7 @@ func (a *Auth) UserList(ctx *ctx.Context) error {
 
 	response.NorResponse(ctx.Context, &admin.UserListResponse{
 		UserList: items,
-		Total:    int32(len(items)),
+		Total:    int32(count),
 	}, "查询成功！")
 	return nil
 }
@@ -47,7 +47,7 @@ func (a *Auth) AdminList(ctx *ctx.Context) error {
 		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
 	}
 
-	list, err := a.AuthService.AdminList(ctx.Ctx(), params)
+	list, count, err := a.AuthService.AdminList(ctx.Ctx(), params)
 	if err != nil {
 		return err
 	}
@@ -65,7 +65,7 @@ func (a *Auth) AdminList(ctx *ctx.Context) error {
 
 	response.NorResponse(ctx.Context, &admin.AdminListResponse{
 		AdminList: items,
-		Total:     int32(len(items)),
+		Total:     int32(count),
 	}, "查询成功！")
 	return nil
 }

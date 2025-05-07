@@ -13,7 +13,7 @@ var _ IQuestionService = (*QuestionService)(nil)
 
 type IQuestionService interface {
 	Add(ctx context.Context, question *model.Question) error
-	List(ctx context.Context, request *admin.QuestionListRequest) ([]*schema.QuestionItem, error)
+	List(ctx context.Context, request *admin.QuestionListRequest) ([]*schema.QuestionItem, int, error)
 }
 
 type QuestionService struct {
@@ -25,14 +25,17 @@ func (q *QuestionService) Add(ctx context.Context, question *model.Question) err
 	return nil
 }
 
-func (q *QuestionService) List(ctx context.Context, request *admin.QuestionListRequest) ([]*schema.QuestionItem, error) {
+func (q *QuestionService) List(ctx context.Context, request *admin.QuestionListRequest) ([]*schema.QuestionItem, int, error) {
 	db := q.QuestionRepo.DB.WithContext(ctx)
 	var items []*schema.QuestionItem
 
 	err := db.Table("questions").Select("id", "title", "tag", "degree", "owner_id", "passing_rate").Where("title LIKE ?", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
 	if err != nil {
-		return nil, myErr.NotFound("", err.Error())
+		return nil, 0, myErr.NotFound("", err.Error())
 	}
 
-	return items, nil
+	var count int64
+	db.Table("questions").Count(&count)
+
+	return items, int(count), nil
 }

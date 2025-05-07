@@ -32,7 +32,7 @@ func (t *Tag) List(ctx *ctx.Context) error {
 		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
 	}
 
-	list, err := t.TagService.List(ctx.Ctx(), params)
+	list, count, err := t.TagService.List(ctx.Ctx(), params)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func (t *Tag) List(ctx *ctx.Context) error {
 
 	response.NorResponse(ctx.Context, &admin.TagListResponse{
 		TagList: items,
-		Total:   int32(len(items)),
+		Total:   int32(count),
 	}, "查询成功！")
 	return nil
 }

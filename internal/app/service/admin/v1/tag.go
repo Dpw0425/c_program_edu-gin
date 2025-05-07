@@ -13,7 +13,7 @@ var _ ITagService = (*TagService)(nil)
 
 type ITagService interface {
 	Add(ctx context.Context, name string) error
-	List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, error)
+	List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, int, error)
 }
 
 type TagService struct {
@@ -30,13 +30,13 @@ func (t *TagService) Add(ctx context.Context, name string) error {
 	})
 }
 
-func (t *TagService) List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, error) {
+func (t *TagService) List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, int, error) {
 	db := t.TagRepo.DB.WithContext(ctx)
 	var items []*schema.TagItem
 
 	err := db.Table("tags").Select("id", "name").Where("name LIKE ?", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
 	if err != nil {
-		return nil, myErr.NotFound("", err.Error())
+		return nil, 0, myErr.NotFound("", err.Error())
 	}
 
 	for _, item := range items {
@@ -44,9 +44,12 @@ func (t *TagService) List(ctx context.Context, request *admin.TagListRequest) ([
 		if err := db.Table("questions").Where("status = 1 and FIND_IN_SET(?,tag)", item.Name).Count(&count).Error; err == nil {
 			item.Count = int(count)
 		} else {
-			return nil, myErr.NotFound("", err.Error())
+			return nil, 0, myErr.NotFound("", err.Error())
 		}
 	}
 
-	return items, nil
+	var count int64
+	db.Table("tags").Count(&count)
+
+	return items, int(count), nil
 }

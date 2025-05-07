@@ -23,7 +23,7 @@ func (q *Question) List(ctx *ctx.Context) error {
 		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
 	}
 
-	list, err := q.QuestionService.List(ctx.Ctx(), params)
+	list, count, err := q.QuestionService.List(ctx.Ctx(), params)
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func (q *Question) List(ctx *ctx.Context) error {
 
 	response.NorResponse(ctx.Context, &admin.QuestionListResponse{
 		QuestionList: items,
-		Total:        int32(len(items)),
+		Total:        int32(count),
 	}, "查询成功！")
 	return nil
 }
