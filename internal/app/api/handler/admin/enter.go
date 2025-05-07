@@ -6,6 +6,7 @@ type V1 struct {
 	Admin    *v1.Admin
 	Question *v1.Question
 	Tag      *v1.Tag
+	Auth     *v1.Auth
 }
 
 type Handler struct {

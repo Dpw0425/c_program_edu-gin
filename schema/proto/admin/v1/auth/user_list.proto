@@ -1,0 +1,25 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/auth;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message UserListRequest {
+  string search = 1 [(tagger.tags) = "form:\"search\""];
+  int32 page = 2 [(tagger.tags) = "form:\"page\""];
+  int32 number = 3 [(tagger.tags) = "form:\"number\""];
+}
+
+message UserListResponse {
+  message UserItem {
+    int64 user_id = 1 [(tagger.tags) = "binding:\"required\""];
+    string user_name = 2 [(tagger.tags) = "binding:\"required\""];
+    string student_id = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 grade = 4 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 5 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated UserItem user_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}

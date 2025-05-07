@@ -29,4 +29,7 @@ var AdminProviderSet = wire.NewSet(
 
 	wire.Struct(new(adminservice.QuestionService), "*"),
 	wire.Bind(new(adminservice.IQuestionService), new(*adminservice.QuestionService)),
+
+	wire.Struct(new(adminservice.AuthService), "*"),
+	wire.Bind(new(adminservice.IAuthService), new(*adminservice.AuthService)),
 )

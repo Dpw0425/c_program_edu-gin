@@ -103,10 +103,18 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	tag := &v1_2.Tag{
 		TagService: tagService,
 	}
+	authService := admin_service.AuthService{
+		UserRepo:  userRepo,
+		AdminRepo: adminRepo,
+	}
+	auth := &v1_2.Auth{
+		AuthService: authService,
+	}
 	adminV1 := &admin.V1{
 		Admin:    v1Admin,
 		Question: v1Question,
 		Tag:      tag,
+		Auth:     auth,
 	}
 	adminHandler := &admin.Handler{
 		V1: adminV1,

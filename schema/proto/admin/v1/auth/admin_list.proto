@@ -1,0 +1,25 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/auth;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AdminListRequest {
+  string search = 1 [(tagger.tags) = "form:\"search\""];
+  int32 page = 2 [(tagger.tags) = "form:\"page\""];
+  int32 number = 3 [(tagger.tags) = "form:\"number\""];
+}
+
+message AdminListResponse {
+  message AdminItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string user_name = 2 [(tagger.tags) = "binding:\"required\""];
+    string teacher_id = 3 [(tagger.tags) = "binding:\"required\""];
+    string permission = 4 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 5 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated AdminItem admin_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}
