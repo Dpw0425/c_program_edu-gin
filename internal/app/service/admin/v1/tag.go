@@ -77,8 +77,8 @@ func (t *TagService) Update(ctx context.Context, request *admin.TagUpdateRequest
 	db.Table("questions").Where("tag LIKE ?", "%"+tag.Name+"%").Scan(&queList)
 	for _, question := range queList {
 		// 构造新字符串
-		oldTags := strings.Split(question.Tag, ","+tag.Name)
-		oldTags[0] = oldTags[0] + "," + request.Name
+		oldTags := strings.Split(question.Tag, tag.Name)
+		oldTags[0] = oldTags[0] + request.Name
 		newTags := strings.Join(oldTags, "")
 		// 写入新字符串
 		if err := db.Table("questions").Where("id = ?", question.ID).UpdateColumn("tag", newTags).Error; err != nil {
