@@ -94,5 +94,5 @@ func (t *TagService) Update(ctx context.Context, request *admin.TagUpdateRequest
 
 func (t *TagService) Delete(ctx context.Context, request *admin.DeleteTagRequest) error {
 	db := t.TagRepo.DB.WithContext(ctx)
-	return db.Where("id = ?", request.Id).Delete(&model.Tag{}).Error
+	return db.Unscoped().Where("id = ?", request.Id).Delete(&model.Tag{}).Error
 }
