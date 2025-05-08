@@ -31,8 +31,9 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 
 		tag := v1.Group("/tag").Use(authorizer) // 分类管理
 		{
-			tag.POST("/add", ctx.HandlerFunc(handler.V1.Tag.Add))  // 添加分类
-			tag.GET("/list", ctx.HandlerFunc(handler.V1.Tag.List)) // 分类列表
+			tag.POST("/add", ctx.HandlerFunc(handler.V1.Tag.Add))       // 添加分类
+			tag.GET("/list", ctx.HandlerFunc(handler.V1.Tag.List))      // 分类列表
+			tag.POST("/update", ctx.HandlerFunc(handler.V1.Tag.Update)) // 分类修改
 		}
 
 		question := v1.Group("/question").Use(authorizer) // 题目管理

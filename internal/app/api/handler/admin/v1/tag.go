@@ -52,3 +52,17 @@ func (t *Tag) List(ctx *ctx.Context) error {
 	}, "查询成功！")
 	return nil
 }
+
+func (t *Tag) Update(ctx *ctx.Context) error {
+	params := &admin.TagUpdateRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := t.TagService.Update(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.TagUpdateResponse{}, "修改成功！")
+	return nil
+}
