@@ -5,11 +5,11 @@ option go_package = "admin/v1/tag;admin";
 
 import "third_party/tagger/tagger.proto";
 
-message tagUpdateRequest {
+message TagUpdateRequest {
   int32 id = 1 [(tagger.tags) = "binding:\"required\""];
   string name = 2 [(tagger.tags) = "binding:\"required\""];
 }
 
-message tagUpdateResponse {
+message TagUpdateResponse {
 
 }

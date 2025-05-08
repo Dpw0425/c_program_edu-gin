@@ -16,6 +16,7 @@ type ITagService interface {
 	Add(ctx context.Context, name string) error
 	List(ctx context.Context, request *admin.TagListRequest) ([]*schema.TagItem, int, error)
 	Update(ctx context.Context, request *admin.TagUpdateRequest) error
+	Delete(ctx context.Context, request *admin.DeleteTagRequest) error
 }
 
 type TagService struct {
@@ -89,4 +90,9 @@ func (t *TagService) Update(ctx context.Context, request *admin.TagUpdateRequest
 	db.Commit()
 
 	return nil
+}
+
+func (t *TagService) Delete(ctx context.Context, request *admin.DeleteTagRequest) error {
+	db := t.TagRepo.DB.WithContext(ctx)
+	return db.Where("id = ?", request.Id).Delete(&model.Tag{}).Error
 }

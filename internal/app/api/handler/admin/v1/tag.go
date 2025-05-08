@@ -66,3 +66,17 @@ func (t *Tag) Update(ctx *ctx.Context) error {
 	response.NorResponse(ctx.Context, &admin.TagUpdateResponse{}, "修改成功！")
 	return nil
 }
+
+func (t *Tag) Delete(ctx *ctx.Context) error {
+	params := &admin.DeleteTagRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := t.TagService.Delete(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.DeleteTagResponse{}, "删除成功！")
+	return nil
+}
