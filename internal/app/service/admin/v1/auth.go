@@ -2,9 +2,11 @@ package admin_service
 
 import (
 	"c_program_edu-gin/internal/app/schema"
+	"c_program_edu-gin/internal/app/storage/model"
 	"c_program_edu-gin/internal/app/storage/repo"
 	myErr "c_program_edu-gin/pkg/error"
 	admin "c_program_edu-gin/schema/genproto/admin/v1/auth"
+	"c_program_edu-gin/utils/encrypt"
 	"context"
 )
 
@@ -13,6 +15,9 @@ var _ IAuthService = (*AuthService)(nil)
 type IAuthService interface {
 	UserList(ctx context.Context, request *admin.UserListRequest) ([]*schema.UserItem, int, error)
 	AdminList(ctx context.Context, request *admin.AdminListRequest) ([]*schema.AdminItem, int, error)
+	AddAdmin(ctx context.Context, request *admin.AddAdminRequest) error
+	UpdateAdmin(ctx context.Context, request *admin.UpdateAdminRequest) error
+	DeleteAdmin(ctx context.Context, request *admin.DeleteAdminRequest) error
 }
 
 type AuthService struct {
@@ -48,4 +53,34 @@ func (a *AuthService) AdminList(ctx context.Context, request *admin.AdminListReq
 	db.Table("admins").Count(&count)
 
 	return items, int(count), nil
+}
+
+func (a *AuthService) AddAdmin(ctx context.Context, request *admin.AddAdminRequest) error {
+	if a.AdminRepo.IsExist(ctx, request.TeacherId) {
+		return myErr.BadRequest("", "账号已存在！")
+	}
+
+	return a.AdminRepo.Create(ctx, &model.Admin{
+		UserName:   request.UserName,
+		TeacherID:  request.TeacherId,
+		Password:   encrypt.HashPassword(request.Password),
+		Permission: request.Permission,
+	})
+}
+
+func (a *AuthService) UpdateAdmin(ctx context.Context, request *admin.UpdateAdminRequest) error {
+	_, err := a.AdminRepo.UpdateByID(ctx, uint(request.Id), map[string]any{
+		"user_name":  request.UserName,
+		"permission": request.Permission,
+	})
+	if err != nil {
+		return myErr.BadRequest("", "修改失败！")
+	}
+
+	return nil
+}
+
+func (a *AuthService) DeleteAdmin(ctx context.Context, request *admin.DeleteAdminRequest) error {
+	db := a.AdminRepo.DB.WithContext(ctx)
+	return db.Unscoped().Where("id = ?", request.Id).Delete(&model.Admin{}).Error
 }

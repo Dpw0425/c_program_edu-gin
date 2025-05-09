@@ -1,0 +1,16 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/auth;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message UpdateAdminRequest {
+  int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+  string user_name = 2 [(tagger.tags) = "binding:\"required\""];
+  string permission = 3 [(tagger.tags) = "binding:\"required\""];
+}
+
+message UpdateAdminResponse {
+
+}

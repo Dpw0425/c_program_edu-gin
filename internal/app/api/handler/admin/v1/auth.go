@@ -69,3 +69,45 @@ func (a *Auth) AdminList(ctx *ctx.Context) error {
 	}, "查询成功！")
 	return nil
 }
+
+func (a *Auth) AddAdmin(ctx *ctx.Context) error {
+	params := &admin.AddAdminRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if err := a.AuthService.AddAdmin(ctx.Ctx(), params); err != nil {
+		return myErr.BadRequest("", "管理员添加失败: %v", err)
+	}
+
+	response.NorResponse(ctx.Context, &admin.AddAdminResponse{}, "添加成功！")
+	return nil
+}
+
+func (a *Auth) UpdateAdmin(ctx *ctx.Context) error {
+	params := &admin.UpdateAdminRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := a.AuthService.UpdateAdmin(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.UpdateAdminResponse{}, "修改成功！")
+	return nil
+}
+
+func (a *Auth) DeleteAdmin(ctx *ctx.Context) error {
+	params := &admin.DeleteAdminRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := a.AuthService.DeleteAdmin(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.DeleteAdminResponse{}, "删除成功！")
+	return nil
+}

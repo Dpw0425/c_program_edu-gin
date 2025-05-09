@@ -75,3 +75,9 @@ func (r Repo[T]) FindByWhere(ctx context.Context, where string, args ...any) (*T
 
 	return item, nil
 }
+
+// UpdateByID 根据 ID 更新
+func (r Repo[T]) UpdateByID(ctx context.Context, id uint, data map[string]any) (int64, error) {
+	result := r.Model(ctx).Where("id = ?", id).Updates(data)
+	return result.RowsAffected, result.Error
+}

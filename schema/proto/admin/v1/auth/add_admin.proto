@@ -1,0 +1,17 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/auth;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AddAdminRequest {
+  string user_name = 1 [(tagger.tags) = "binding:\"required\""];
+  string teacher_id = 2 [(tagger.tags) = "binding:\"required\""];
+  string password = 3 [(tagger.tags) = "binding:\"required\""];
+  string permission = 4 [(tagger.tags) = "binding:\"required\""];
+}
+
+message AddAdminResponse {
+
+}

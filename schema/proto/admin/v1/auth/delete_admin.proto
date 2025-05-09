@@ -1,0 +1,14 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/auth;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message DeleteAdminRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message DeleteAdminResponse {
+
+}
