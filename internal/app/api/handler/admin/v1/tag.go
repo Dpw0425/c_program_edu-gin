@@ -80,3 +80,23 @@ func (t *Tag) Delete(ctx *ctx.Context) error {
 	response.NorResponse(ctx.Context, &admin.DeleteTagResponse{}, "删除成功！")
 	return nil
 }
+
+func (t *Tag) GetAll(ctx *ctx.Context) error {
+	list, err := t.TagService.GetAll(ctx.Ctx())
+	if err != nil {
+		return err
+	}
+
+	items := make([]*admin.TagListResponse_TagItem, 0, len(list))
+	for _, item := range list {
+		items = append(items, &admin.TagListResponse_TagItem{
+			Id:   int32(item.ID),
+			Name: item.Name,
+		})
+	}
+
+	response.NorResponse(ctx.Context, &admin.TagListResponse{
+		TagList: items,
+	}, "查询成功！")
+	return nil
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/question;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AddQuestionRequest {
+  string title = 1 [(tagger.tags) = "binding:\"required\""];
+  string content = 2 [(tagger.tags) = "binding:\"required\""];
+  string answer = 3 [(tagger.tags) = "binding:\"required\""];
+  repeated string tag = 4 [(tagger.tags) = "binding:\"required\""];
+  int32 degree = 5 [(tagger.tags) = "binding:\"required\""];
+  int32 status = 6;
+}
+
+message AddQuestionResponse {
+
+}

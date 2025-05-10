@@ -35,12 +35,15 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 			tag.GET("/list", ctx.HandlerFunc(handler.V1.Tag.List))        // 分类列表
 			tag.POST("/update", ctx.HandlerFunc(handler.V1.Tag.Update))   // 修改分类
 			tag.DELETE("/delete", ctx.HandlerFunc(handler.V1.Tag.Delete)) // 删除分类
+			tag.GET("/get_all", ctx.HandlerFunc(handler.V1.Tag.GetAll))   // 获取全部分类
 		}
 
 		question := v1.Group("/question").Use(authorizer) // 题目管理
 		{
-			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))  // 添加题目
-			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List)) // 题目列表
+			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))         // 添加题目
+			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List))        // 题目列表
+			question.POST("/update", ctx.HandlerFunc(handler.V1.Question.Update))   // 修改题目
+			question.DELETE("/delete", ctx.HandlerFunc(handler.V1.Question.Delete)) // 删除题目
 		}
 
 		auth := v1.Group("/auth").Use(authorizer) // 权限管理

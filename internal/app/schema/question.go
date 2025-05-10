@@ -7,4 +7,7 @@ type QuestionItem struct {
 	Degree      int     `gorm:"column:degree" json:"degree"`
 	PassingRate float32 `gorm:"column:passing_rate" json:"passing_rate"`
 	OwnerID     int64   `gorm:"column:owner_id" json:"owner_id"`
+	Content     string  `gorm:"column:content" json:"content"`
+	Answer      string  `gorm:"column:answer" json:"answer"`
+	Status      int     `gorm:"column:status" json:"status"`
 }

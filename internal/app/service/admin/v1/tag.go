@@ -96,3 +96,15 @@ func (t *TagService) Delete(ctx context.Context, request *admin.DeleteTagRequest
 	db := t.TagRepo.DB.WithContext(ctx)
 	return db.Unscoped().Where("id = ?", request.Id).Delete(&model.Tag{}).Error
 }
+
+func (t *TagService) GetAll(ctx context.Context) ([]*schema.TagItem, error) {
+	db := t.TagRepo.DB.WithContext(ctx)
+	var items []*schema.TagItem
+
+	err := db.Table("tags").Select("id", "name").Scan(&items).Error
+	if err != nil {
+		return nil, myErr.NotFound("", err.Error())
+	}
+
+	return items, nil
+}

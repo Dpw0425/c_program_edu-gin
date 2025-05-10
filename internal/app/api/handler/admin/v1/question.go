@@ -14,12 +14,22 @@ type Question struct {
 }
 
 func (q *Question) Add(ctx *ctx.Context) error {
+	params := &admin.AddQuestionRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！%v", err)
+	}
+
+	if result := q.QuestionService.Add(ctx.Ctx(), params, ctx.UserID()); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.AddQuestionResponse{}, "发布成功！")
 	return nil
 }
 
 func (q *Question) List(ctx *ctx.Context) error {
 	params := &admin.QuestionListRequest{}
-	if err := ctx.Context.ShouldBindQuery(params); err != nil {
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
 		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
 	}
 
@@ -37,6 +47,9 @@ func (q *Question) List(ctx *ctx.Context) error {
 			Degree:      int32(item.Degree),
 			PassingRate: item.PassingRate,
 			OwnerId:     int32(item.OwnerID),
+			Content:     item.Content,
+			Answer:      item.Answer,
+			Status:      int32(item.Status),
 		})
 	}
 
@@ -44,5 +57,33 @@ func (q *Question) List(ctx *ctx.Context) error {
 		QuestionList: items,
 		Total:        int32(count),
 	}, "查询成功！")
+	return nil
+}
+
+func (q *Question) Update(ctx *ctx.Context) error {
+	params := &admin.UpdateQuestionRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := q.QuestionService.Update(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.UpdateQuestionResponse{}, "修改成功！")
+	return nil
+}
+
+func (q *Question) Delete(ctx *ctx.Context) error {
+	params := &admin.DeleteQuestionRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := q.QuestionService.Delete(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.DeleteQuestionResponse{}, "删除成功！")
 	return nil
 }
