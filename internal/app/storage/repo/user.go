@@ -53,3 +53,8 @@ func (u *UserRepo) FindByEmail(ctx context.Context, email string) (*model.User, 
 func (u *UserRepo) FindByID(ctx context.Context, UserID int64) (*model.User, error) {
 	return u.FindByWhere(ctx, "user_id = ?", UserID)
 }
+
+func (u *UserRepo) UpdateByUserID(ctx context.Context, userId int64, data map[string]any) (int64, error) {
+	result := u.Model(ctx).Where("user_id = ?", userId).Updates(data)
+	return result.RowsAffected, result.Error
+}

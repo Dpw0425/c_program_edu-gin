@@ -13,7 +13,7 @@ message UserListRequest {
 
 message UserListResponse {
   message UserItem {
-    int64 user_id = 1 [(tagger.tags) = "binding:\"required\""];
+    string user_id = 1 [(tagger.tags) = "binding:\"required\""];
     string user_name = 2 [(tagger.tags) = "binding:\"required\""];
     string student_id = 3 [(tagger.tags) = "binding:\"required\""];
     int32 grade = 4 [(tagger.tags) = "binding:\"required\""];

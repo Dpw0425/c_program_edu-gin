@@ -108,7 +108,7 @@ func (u *User) Info(ctx *ctx.Context) error {
 	}
 
 	response.NorResponse(ctx.Context, &web.UserInfoResponse{
-		UserId:    result.UserID,
+		UserId:    strconv.FormatInt(result.UserID, 10),
 		UserName:  result.UserName,
 		StudentId: result.StudentID,
 		Email:     result.Email,

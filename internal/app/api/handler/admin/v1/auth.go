@@ -6,6 +6,7 @@ import (
 	myErr "c_program_edu-gin/pkg/error"
 	"c_program_edu-gin/pkg/response"
 	admin "c_program_edu-gin/schema/genproto/admin/v1/auth"
+	"strconv"
 )
 
 type Auth struct {
@@ -26,7 +27,7 @@ func (a *Auth) UserList(ctx *ctx.Context) error {
 	items := make([]*admin.UserListResponse_UserItem, 0, len(list))
 	for _, item := range list {
 		items = append(items, &admin.UserListResponse_UserItem{
-			UserId:    item.UserID,
+			UserId:    strconv.FormatInt(item.UserID, 10),
 			UserName:  item.UserName,
 			StudentId: item.StudentID,
 			Grade:     int32(item.Grade),
@@ -40,6 +41,34 @@ func (a *Auth) UserList(ctx *ctx.Context) error {
 		UserList: items,
 		Total:    int32(count),
 	}, "查询成功！")
+	return nil
+}
+
+func (a *Auth) UpdateUser(ctx *ctx.Context) error {
+	params := &admin.UpdateUserRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := a.AuthService.UpdateUser(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.UpdateUserResponse{}, "修改成功！")
+	return nil
+}
+
+func (a *Auth) DeleteUser(ctx *ctx.Context) error {
+	params := &admin.DeleteUserRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := a.AuthService.DeleteUser(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.DeleteUserResponse{}, "删除成功！")
 	return nil
 }
 

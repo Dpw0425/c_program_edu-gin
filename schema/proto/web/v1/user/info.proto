@@ -8,7 +8,7 @@ option go_package = "web/v1/user;web";
 message UserInfoRequest{}
 
 message UserInfoResponse {
-  int64 user_id = 1;
+  string user_id = 1;
   string user_name = 2;
   string student_id = 3;
   string email = 4;

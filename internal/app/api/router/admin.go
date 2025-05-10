@@ -52,7 +52,9 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 			auth.GET("/admin_list", ctx.HandlerFunc(handler.V1.Auth.AdminList))        // 管理员列表
 			auth.POST("/add_admin", ctx.HandlerFunc(handler.V1.Auth.AddAdmin))         // 新增管理员
 			auth.POST("/update_admin", ctx.HandlerFunc(handler.V1.Auth.UpdateAdmin))   // 修改管理员信息
-			auth.DELETE("/delete_admin", ctx.HandlerFunc(handler.V1.Auth.DeleteAdmin)) // 删除分类
+			auth.DELETE("/delete_admin", ctx.HandlerFunc(handler.V1.Auth.DeleteAdmin)) // 删除管理员
+			auth.POST("/update_user", ctx.HandlerFunc(handler.V1.Auth.UpdateUser))     // 修改用户信息
+			auth.DELETE("/delete_user", ctx.HandlerFunc(handler.V1.Auth.DeleteUser))   // 删除用户
 		}
 	}
 }
