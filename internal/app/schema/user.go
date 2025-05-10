@@ -20,4 +20,6 @@ type UserItem struct {
 	StudentID string `gorm:"column:student_id" json:"student_id"`
 	Grade     int    `gorm:"column:grade" json:"grade"`
 	Status    int    `gorm:"column:status" json:"status"`
+	Email     string `gorm:"column:email" json:"email"`
+	Avatar    string `gorm:"column:avatar" json:"avatar"`
 }

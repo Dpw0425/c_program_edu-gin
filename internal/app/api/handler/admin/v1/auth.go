@@ -31,6 +31,8 @@ func (a *Auth) UserList(ctx *ctx.Context) error {
 			StudentId: item.StudentID,
 			Grade:     int32(item.Grade),
 			Status:    int32(item.Status),
+			Email:     item.Email,
+			Avatar:    item.Avatar,
 		})
 	}
 

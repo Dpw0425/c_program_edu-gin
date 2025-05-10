@@ -309,6 +309,10 @@ func (m *UserListResponse_UserItem) validate(all bool) error {
 
 	// no validation rules for Status
 
+	// no validation rules for Email
+
+	// no validation rules for Avatar
+
 	if len(errors) > 0 {
 		return UserListResponse_UserItemMultiError(errors)
 	}

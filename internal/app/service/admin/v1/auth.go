@@ -29,7 +29,7 @@ func (a *AuthService) UserList(ctx context.Context, request *admin.UserListReque
 	db := a.UserRepo.DB.WithContext(ctx)
 	var items []*schema.UserItem
 
-	err := db.Table("users").Select("user_id", "user_name", "student_id", "grade", "status").Where("user_name LIKE ?", "%"+request.Search+"%").Or("student_id LIKE ?", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
+	err := db.Table("users").Select("user_id", "user_name", "student_id", "grade", "status", "email", "avatar").Where("user_name LIKE ?", "%"+request.Search+"%").Or("student_id LIKE ?", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
 	if err != nil {
 		return nil, 0, myErr.NotFound("", err.Error())
 	}
