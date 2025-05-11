@@ -87,3 +87,70 @@ func (q *Question) Delete(ctx *ctx.Context) error {
 	response.NorResponse(ctx.Context, &admin.DeleteQuestionResponse{}, "删除成功！")
 	return nil
 }
+
+func (q *Question) AddTestData(ctx *ctx.Context) error {
+	params := &admin.AddTestDataRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameter", "请求参数错误！")
+	}
+
+	if result := q.QuestionService.AddTestData(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.AddTestDataResponse{}, "添加成功！")
+	return nil
+}
+
+func (q *Question) GetTestData(ctx *ctx.Context) error {
+	params := &admin.GetTestDataRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	list, err := q.QuestionService.GetTestData(ctx.Ctx(), params)
+	if err != nil {
+		return err
+	}
+
+	items := make([]*admin.GetTestDataResponse_TestDataItem, 0, len(list))
+	for _, item := range list {
+		items = append(items, &admin.GetTestDataResponse_TestDataItem{
+			Id:         int32(item.ID),
+			Input:      item.Input,
+			Output:     item.Output,
+			QuestionId: int32(item.QuestionID),
+		})
+	}
+
+	response.NorResponse(ctx.Context, &admin.GetTestDataResponse{TestDataList: items}, "查询成功！")
+	return nil
+}
+
+func (q *Question) UpdateTestData(ctx *ctx.Context) error {
+	params := &admin.UpdateTestDataRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := q.QuestionService.UpdateTestData(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.UpdateTestDataResponse{}, "修改成功！")
+	return nil
+}
+
+func (q *Question) DeleteTestData(ctx *ctx.Context) error {
+	params := &admin.DeleteTestDataRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := q.QuestionService.DeleteTestData(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.DeleteTestDataResponse{}, "删除成功！")
+	return nil
+}

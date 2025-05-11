@@ -40,10 +40,14 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 
 		question := v1.Group("/question").Use(authorizer) // 题目管理
 		{
-			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))         // 添加题目
-			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List))        // 题目列表
-			question.POST("/update", ctx.HandlerFunc(handler.V1.Question.Update))   // 修改题目
-			question.DELETE("/delete", ctx.HandlerFunc(handler.V1.Question.Delete)) // 删除题目
+			question.POST("/add", ctx.HandlerFunc(handler.V1.Question.Add))                      // 添加题目
+			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List))                     // 题目列表
+			question.POST("/update", ctx.HandlerFunc(handler.V1.Question.Update))                // 修改题目
+			question.DELETE("/delete", ctx.HandlerFunc(handler.V1.Question.Delete))              // 删除题目
+			question.POST("/add_test", ctx.HandlerFunc(handler.V1.Question.AddTestData))         // 添加测试数据
+			question.GET("/get_test", ctx.HandlerFunc(handler.V1.Question.GetTestData))          // 查询测试数据
+			question.POST("/update_test", ctx.HandlerFunc(handler.V1.Question.UpdateTestData))   // 更新测试数据
+			question.DELETE("/delete_test", ctx.HandlerFunc(handler.V1.Question.DeleteTestData)) // 删除测试数据
 		}
 
 		auth := v1.Group("/auth").Use(authorizer) // 权限管理

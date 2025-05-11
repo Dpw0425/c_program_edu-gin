@@ -90,8 +90,10 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		JwtTokenStorage: jwtTokenStorage,
 		AdminService:    adminService,
 	}
+	testDataRepo := repo.NewTestData(db)
 	admin_serviceQuestionService := admin_service.QuestionService{
 		QuestionRepo: questionRepo,
+		TestDataRepo: testDataRepo,
 	}
 	v1Question := &v1_2.Question{
 		QuestionService: admin_serviceQuestionService,

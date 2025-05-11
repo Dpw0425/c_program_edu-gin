@@ -146,6 +146,107 @@ func (*AddQuestionResponse) Descriptor() ([]byte, []int) {
 	return file_add_question_proto_rawDescGZIP(), []int{1}
 }
 
+type AddTestDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	QuestionId int32  `protobuf:"varint,1,opt,name=question_id,json=questionId,proto3" json:"question_id,omitempty" binding:"required"`
+	Input      string `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
+	Output     string `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty" binding:"required"`
+}
+
+func (x *AddTestDataRequest) Reset() {
+	*x = AddTestDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_add_question_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddTestDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddTestDataRequest) ProtoMessage() {}
+
+func (x *AddTestDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_add_question_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddTestDataRequest.ProtoReflect.Descriptor instead.
+func (*AddTestDataRequest) Descriptor() ([]byte, []int) {
+	return file_add_question_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *AddTestDataRequest) GetQuestionId() int32 {
+	if x != nil {
+		return x.QuestionId
+	}
+	return 0
+}
+
+func (x *AddTestDataRequest) GetInput() string {
+	if x != nil {
+		return x.Input
+	}
+	return ""
+}
+
+func (x *AddTestDataRequest) GetOutput() string {
+	if x != nil {
+		return x.Output
+	}
+	return ""
+}
+
+type AddTestDataResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *AddTestDataResponse) Reset() {
+	*x = AddTestDataResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_add_question_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddTestDataResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddTestDataResponse) ProtoMessage() {}
+
+func (x *AddTestDataResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_add_question_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddTestDataResponse.ProtoReflect.Descriptor instead.
+func (*AddTestDataResponse) Descriptor() ([]byte, []int) {
+	return file_add_question_proto_rawDescGZIP(), []int{3}
+}
+
 var File_add_question_proto protoreflect.FileDescriptor
 
 var file_add_question_proto_rawDesc = []byte{
@@ -172,9 +273,20 @@ var file_add_question_proto_rawDesc = []byte{
 	0x65, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x06, 0x20, 0x01,
 	0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x15, 0x0a, 0x13, 0x41, 0x64,
 	0x64, 0x51, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x42, 0x19, 0x5a, 0x17, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e, 0x3b, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x22, 0x95, 0x01, 0x0a, 0x12, 0x41, 0x64, 0x64, 0x54, 0x65, 0x73, 0x74, 0x44, 0x61, 0x74,
+	0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x38, 0x0a, 0x0b, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x42, 0x17, 0x9a,
+	0x84, 0x9e, 0x03, 0x12, 0x62, 0x69, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x3a, 0x22, 0x72, 0x65, 0x71,
+	0x75, 0x69, 0x72, 0x65, 0x64, 0x22, 0x52, 0x0a, 0x71, 0x75, 0x65, 0x73, 0x74, 0x69, 0x6f, 0x6e,
+	0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x69, 0x6e, 0x70, 0x75, 0x74, 0x12, 0x2f, 0x0a, 0x06, 0x6f, 0x75, 0x74, 0x70,
+	0x75, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x17, 0x9a, 0x84, 0x9e, 0x03, 0x12, 0x62,
+	0x69, 0x6e, 0x64, 0x69, 0x6e, 0x67, 0x3a, 0x22, 0x72, 0x65, 0x71, 0x75, 0x69, 0x72, 0x65, 0x64,
+	0x22, 0x52, 0x06, 0x6f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x22, 0x15, 0x0a, 0x13, 0x41, 0x64, 0x64,
+	0x54, 0x65, 0x73, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x42, 0x19, 0x5a, 0x17, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2f, 0x76, 0x31, 0x2f, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x69, 0x6f, 0x6e, 0x3b, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -189,10 +301,12 @@ func file_add_question_proto_rawDescGZIP() []byte {
 	return file_add_question_proto_rawDescData
 }
 
-var file_add_question_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_add_question_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_add_question_proto_goTypes = []interface{}{
 	(*AddQuestionRequest)(nil),  // 0: admin.AddQuestionRequest
 	(*AddQuestionResponse)(nil), // 1: admin.AddQuestionResponse
+	(*AddTestDataRequest)(nil),  // 2: admin.AddTestDataRequest
+	(*AddTestDataResponse)(nil), // 3: admin.AddTestDataResponse
 }
 var file_add_question_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -232,6 +346,30 @@ func file_add_question_proto_init() {
 				return nil
 			}
 		}
+		file_add_question_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddTestDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_add_question_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddTestDataResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -239,7 +377,7 @@ func file_add_question_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_add_question_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -17,3 +17,13 @@ message AddQuestionRequest {
 message AddQuestionResponse {
 
 }
+
+message AddTestDataRequest {
+  int32 question_id = 1 [(tagger.tags) = "binding:\"required\""];
+  string input = 2;
+  string output = 3 [(tagger.tags) = "binding:\"required\""];
+}
+
+message AddTestDataResponse {
+
+}

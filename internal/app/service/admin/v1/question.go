@@ -17,10 +17,15 @@ type IQuestionService interface {
 	List(ctx context.Context, request *admin.QuestionListRequest) ([]*schema.QuestionItem, int, error)
 	Update(ctx context.Context, request *admin.UpdateQuestionRequest) error
 	Delete(ctx context.Context, request *admin.DeleteQuestionRequest) error
+	AddTestData(ctx context.Context, request *admin.AddTestDataRequest) error
+	GetTestData(ctx context.Context, request *admin.GetTestDataRequest) ([]*schema.TestDataItem, error)
+	UpdateTestData(ctx context.Context, request *admin.UpdateTestDataRequest) error
+	DeleteTestData(ctx context.Context, request *admin.DeleteTestDataRequest) error
 }
 
 type QuestionService struct {
 	QuestionRepo *repo.QuestionRepo
+	TestDataRepo *repo.TestDataRepo
 }
 
 func (q *QuestionService) Add(ctx context.Context, request *admin.AddQuestionRequest, userId int64) error {
@@ -74,4 +79,43 @@ func (q *QuestionService) Delete(ctx context.Context, request *admin.DeleteQuest
 	db := q.QuestionRepo.DB.WithContext(ctx)
 
 	return db.Unscoped().Where("id = ?", request.Id).Delete(&model.Question{}).Error
+}
+
+func (q *QuestionService) AddTestData(ctx context.Context, request *admin.AddTestDataRequest) error {
+	return q.TestDataRepo.Create(ctx, &model.TestData{
+		QuestionID: uint(request.QuestionId),
+		Input:      request.Input,
+		Output:     request.Output,
+	})
+}
+
+func (q *QuestionService) GetTestData(ctx context.Context, request *admin.GetTestDataRequest) ([]*schema.TestDataItem, error) {
+	db := q.TestDataRepo.DB.WithContext(ctx)
+	var items []*schema.TestDataItem
+
+	err := db.Table("test_data").Where("question_id = ?", request.QuestionId).Scan(&items).Error
+	if err != nil {
+		return nil, myErr.NotFound("", err.Error())
+	}
+
+	return items, nil
+}
+
+func (q *QuestionService) UpdateTestData(ctx context.Context, request *admin.UpdateTestDataRequest) error {
+	_, err := q.TestDataRepo.UpdateByID(ctx, uint(request.Id), map[string]any{
+		"input":  request.Input,
+		"output": request.Output,
+	})
+
+	if err != nil {
+		return myErr.BadRequest("", "修改失败！")
+	}
+
+	return nil
+}
+
+func (q *QuestionService) DeleteTestData(ctx context.Context, request *admin.DeleteTestDataRequest) error {
+	db := q.TestDataRepo.DB.WithContext(ctx)
+
+	return db.Unscoped().Where("id = ?", request.Id).Delete(&model.TestData{}).Error
 }

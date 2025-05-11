@@ -248,3 +248,213 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AddQuestionResponseValidationError{}
+
+// Validate checks the field values on AddTestDataRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddTestDataRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddTestDataRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddTestDataRequestMultiError, or nil if none found.
+func (m *AddTestDataRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddTestDataRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for QuestionId
+
+	// no validation rules for Input
+
+	// no validation rules for Output
+
+	if len(errors) > 0 {
+		return AddTestDataRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddTestDataRequestMultiError is an error wrapping multiple validation errors
+// returned by AddTestDataRequest.ValidateAll() if the designated constraints
+// aren't met.
+type AddTestDataRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddTestDataRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddTestDataRequestMultiError) AllErrors() []error { return m }
+
+// AddTestDataRequestValidationError is the validation error returned by
+// AddTestDataRequest.Validate if the designated constraints aren't met.
+type AddTestDataRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddTestDataRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddTestDataRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddTestDataRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddTestDataRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddTestDataRequestValidationError) ErrorName() string {
+	return "AddTestDataRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddTestDataRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddTestDataRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddTestDataRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddTestDataRequestValidationError{}
+
+// Validate checks the field values on AddTestDataResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddTestDataResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddTestDataResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddTestDataResponseMultiError, or nil if none found.
+func (m *AddTestDataResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddTestDataResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return AddTestDataResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddTestDataResponseMultiError is an error wrapping multiple validation
+// errors returned by AddTestDataResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AddTestDataResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddTestDataResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddTestDataResponseMultiError) AllErrors() []error { return m }
+
+// AddTestDataResponseValidationError is the validation error returned by
+// AddTestDataResponse.Validate if the designated constraints aren't met.
+type AddTestDataResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddTestDataResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddTestDataResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddTestDataResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddTestDataResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddTestDataResponseValidationError) ErrorName() string {
+	return "AddTestDataResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddTestDataResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddTestDataResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddTestDataResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddTestDataResponseValidationError{}

@@ -11,3 +11,10 @@ type QuestionItem struct {
 	Answer      string  `gorm:"column:answer" json:"answer"`
 	Status      int     `gorm:"column:status" json:"status"`
 }
+
+type TestDataItem struct {
+	ID         uint   `gorm:"column:id" json:"id"`
+	Input      string `gorm:"column:input" json:"input"`
+	Output     string `gorm:"column:output" json:"output"`
+	QuestionID uint   `gorm:"column:question_id" json:"question_id"`
+}

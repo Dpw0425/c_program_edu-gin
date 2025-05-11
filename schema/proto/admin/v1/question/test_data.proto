@@ -1,0 +1,39 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/question;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message GetTestDataRequest {
+  int32 question_id = 1 [(tagger.tags) = "form:\"question_id\""];
+}
+
+message GetTestDataResponse {
+  message TestDataItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string input = 2 [(tagger.tags) = "binding:\"required\""];
+    string output = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 question_id = 4 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated TestDataItem test_data_list = 1 [(tagger.tags) = "binding:\"required\""];
+}
+
+message UpdateTestDataRequest {
+  int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+  string input = 2 [(tagger.tags) = "binding:\"required\""];
+  string output = 3 [(tagger.tags) = "binding:\"required\""];
+}
+
+message UpdateTestDataResponse {
+
+}
+
+message DeleteTestDataRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message DeleteTestDataResponse {
+
+}
