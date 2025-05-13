@@ -7,6 +7,7 @@ type V1 struct {
 	Question *v1.Question
 	Tag      *v1.Tag
 	Auth     *v1.Auth
+	Bank     *v1.Bank
 }
 
 type Handler struct {

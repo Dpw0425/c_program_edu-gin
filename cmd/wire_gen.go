@@ -112,11 +112,22 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	auth := &v1_2.Auth{
 		AuthService: authService,
 	}
+	bankRepo := repo.NewBanks(db)
+	bankQueRepo := repo.NewBankQue(db)
+	bankService := admin_service.BankService{
+		QuestionRepo: questionRepo,
+		BankRepo:     bankRepo,
+		BankQueRepo:  bankQueRepo,
+	}
+	bank := &v1_2.Bank{
+		BankService: bankService,
+	}
 	adminV1 := &admin.V1{
 		Admin:    v1Admin,
 		Question: v1Question,
 		Tag:      tag,
 		Auth:     auth,
+		Bank:     bank,
 	}
 	adminHandler := &admin.Handler{
 		V1: adminV1,

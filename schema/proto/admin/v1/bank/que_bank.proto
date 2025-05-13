@@ -1,0 +1,52 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/bank;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message GetQuestionInBankRequest {
+  int32 page = 1 [(tagger.tags) = "form:\"page\""];
+  int32 number = 2 [(tagger.tags) = "form:\"number\""];
+  int32 id = 3 [(tagger.tags) = "form:\"id\""];
+}
+
+message GetQuestionInBankResponse {
+  message QuestionItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string title = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string tag = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 degree = 4 [(tagger.tags) = "binding:\"required\""];
+    float passing_rate = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 6 [(tagger.tags) = "binding:\"required\""];
+    string content = 7 [(tagger.tags) = "binding:\"required\""];
+    string answer = 8 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 9 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated QuestionItem question_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}
+
+message GetQuestionBesideBankRequest {
+  int32 page = 1 [(tagger.tags) = "form:\"page\""];
+  int32 number = 2 [(tagger.tags) = "form:\"number\""];
+  int32 id = 3 [(tagger.tags) = "form:\"id\""];
+}
+
+message GetQuestionBesideBankResponse {
+  message QuestionItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string title = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string tag = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 degree = 4 [(tagger.tags) = "binding:\"required\""];
+    float passing_rate = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 6 [(tagger.tags) = "binding:\"required\""];
+    string content = 7 [(tagger.tags) = "binding:\"required\""];
+    string answer = 8 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 9 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated QuestionItem question_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}

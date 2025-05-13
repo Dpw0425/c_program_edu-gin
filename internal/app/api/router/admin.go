@@ -60,5 +60,16 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 			auth.POST("/update_user", ctx.HandlerFunc(handler.V1.Auth.UpdateUser))     // 修改用户信息
 			auth.DELETE("/delete_user", ctx.HandlerFunc(handler.V1.Auth.DeleteUser))   // 删除用户
 		}
+
+		bank := v1.Group("/question_bank").Use(authorizer) // 题库管理
+		{
+			bank.POST("/add", ctx.HandlerFunc(handler.V1.Bank.Add))                            // 创建题库
+			bank.GET("/list", ctx.HandlerFunc(handler.V1.Bank.List))                           // 题库列表
+			bank.POST("/update", ctx.HandlerFunc(handler.V1.Bank.Update))                      // 更新题库信息
+			bank.DELETE("/delete", ctx.HandlerFunc(handler.V1.Bank.Delete))                    // 删除题库
+			bank.GET("/get_question", ctx.HandlerFunc(handler.V1.Bank.GetQuestionInBank))      // 获取题库内题目列表
+			bank.GET("/get_beside", ctx.HandlerFunc(handler.V1.Bank.GetQuestionBesideBank))    // 获取非题库内题目列表
+			bank.DELETE("/exclude_question", ctx.HandlerFunc(handler.V1.Bank.ExcludeQuestion)) // 删除题库内题目
+		}
 	}
 }

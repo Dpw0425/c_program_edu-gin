@@ -1,0 +1,17 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/bank;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AddBankRequest {
+  string name = 1 [(tagger.tags) = "binding:\"required\""];
+  string content = 2 [(tagger.tags) = "binding:\"required\""];
+  repeated string open_grade = 3;
+  repeated int32 questions = 4;
+}
+
+message AddBankResponse {
+
+}

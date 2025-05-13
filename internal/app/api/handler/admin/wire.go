@@ -10,6 +10,7 @@ var ProviderSet = wire.NewSet(
 	wire.Struct(new(v1.Question), "*"),
 	wire.Struct(new(v1.Tag), "*"),
 	wire.Struct(new(v1.Auth), "*"),
+	wire.Struct(new(v1.Bank), "*"),
 
 	wire.Struct(new(V1), "*"),
 )

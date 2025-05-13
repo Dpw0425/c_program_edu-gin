@@ -1,0 +1,27 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/bank;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message BankListRequest {
+  string search = 1 [(tagger.tags) = "form:\"search\""];
+  int32 page = 2 [(tagger.tags) = "form:\"page\""];
+  int32 number = 3 [(tagger.tags) = "form:\"number\""];
+}
+
+message BankListResponse {
+  message BankItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string name = 2 [(tagger.tags) = "binding:\"required\""];
+    string content = 3 [(tagger.tags) = "binding:\"required\""];
+    repeated string open_grade = 4 [(tagger.tags) = "binding:\"required\""];
+    int32 participants = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 completed = 6 [(tagger.tags) = "binding:\"required\""];
+    int32 count = 7 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated BankItem bank_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}

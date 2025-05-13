@@ -1,0 +1,23 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/bank;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message DeleteBankRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message DeleteBankResponse {
+
+}
+
+message ExcludeQuestionRequest {
+  int32 bank_id = 1 [(tagger.tags) = "form:\"bank_id\""];
+  int32 question_id = 2 [(tagger.tags) = "form:\"question_id\""];
+}
+
+message ExcludeQuestionResponse {
+
+}
