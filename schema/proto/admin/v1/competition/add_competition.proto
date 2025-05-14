@@ -1,0 +1,18 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/competition;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message AddCompetitionRequest {
+  string name = 1 [(tagger.tags) = "binding:\"required\""];
+  string start_time = 2 [(tagger.tags) = "binding:\"required\""];
+  string deadline = 3 [(tagger.tags) = "binding:\"required\""];
+  int32 category = 4;
+  int32 permission = 5;
+}
+
+message AddCompetitionResponse {
+
+}

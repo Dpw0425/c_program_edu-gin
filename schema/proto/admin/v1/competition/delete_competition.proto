@@ -1,0 +1,14 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/competition;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message DeleteCompetitionRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message DeleteCompetitionResponse {
+
+}

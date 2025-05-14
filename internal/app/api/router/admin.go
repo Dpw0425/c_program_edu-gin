@@ -71,5 +71,13 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 			bank.GET("/get_beside", ctx.HandlerFunc(handler.V1.Bank.GetQuestionBesideBank))    // 获取非题库内题目列表
 			bank.DELETE("/exclude_question", ctx.HandlerFunc(handler.V1.Bank.ExcludeQuestion)) // 删除题库内题目
 		}
+
+		competition := v1.Group("/competition").Use(authorizer) // 比赛管理
+		{
+			competition.GET("/list", ctx.HandlerFunc(handler.V1.Competition.List))        // 比赛列表
+			competition.POST("/add", ctx.HandlerFunc(handler.V1.Competition.Add))         // 创建比赛
+			competition.POST("/update", ctx.HandlerFunc(handler.V1.Competition.Update))   // 修改比赛
+			competition.DELETE("/delete", ctx.HandlerFunc(handler.V1.Competition.Delete)) // 删除比赛
+		}
 	}
 }

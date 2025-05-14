@@ -35,4 +35,7 @@ var AdminProviderSet = wire.NewSet(
 
 	wire.Struct(new(adminservice.BankService), "*"),
 	wire.Bind(new(adminservice.IBankService), new(*adminservice.BankService)),
+
+	wire.Struct(new(adminservice.CompetitionService), "*"),
+	wire.Bind(new(adminservice.ICompetitionService), new(*adminservice.CompetitionService)),
 )

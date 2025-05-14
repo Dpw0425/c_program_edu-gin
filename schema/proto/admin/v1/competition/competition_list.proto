@@ -1,0 +1,29 @@
+syntax = "proto3";
+package admin;
+
+option go_package = "admin/v1/competition;admin";
+
+import "third_party/tagger/tagger.proto";
+
+message CompetitionListRequest {
+  int32 page = 1 [(tagger.tags) = "form:\"page\""];
+  int32 number = 2 [(tagger.tags) = "form:\"number\""];
+  string search = 3 [(tagger.tags) = "form:\"search\""];
+}
+
+message CompetitionListResponse {
+  message CompetitionItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string name = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string contestant = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 4 [(tagger.tags) = "binding:\"required\""];
+    string start_time = 5 [(tagger.tags) = "binding:\"required\""];
+    string deadline = 6 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 7 [(tagger.tags) = "binding:\"required\""];
+    int32 category = 8 [(tagger.tags) = "binding:\"required\""];
+    int32 permission = 9 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated CompetitionItem competition_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}
