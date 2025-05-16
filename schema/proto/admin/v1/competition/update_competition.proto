@@ -16,3 +16,21 @@ message UpdateCompetitionRequest {
 message UpdateCompetitionResponse {
 
 }
+
+message AddQuestionToCptRequest {
+  repeated int32 ids = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 competition_id = 2 [(tagger.tags) = "binding:\"required\""];
+}
+
+message AddQuestionToCptResponse {
+
+}
+
+message ExcludeQuestionFromCptRequest {
+  int32 competition_id = 1 [(tagger.tags) = "form:\"competition\""];
+  int32 question_id = 2 [(tagger.tags) = "form:\"question_id\""];
+}
+
+message ExcludeQuestionFromCptResponse {
+
+}

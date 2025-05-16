@@ -87,3 +87,97 @@ func (c *Competition) Delete(ctx *ctx.Context) error {
 	response.NorResponse(ctx.Context, &admin.DeleteCompetitionResponse{}, "删除成功！")
 	return nil
 }
+
+func (c *Competition) GetQuestionInCpt(ctx *ctx.Context) error {
+	params := &admin.GetQuestionInCptRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	list, count, err := c.CompetitionService.GetQuestionInCpt(ctx.Ctx(), params)
+	if err != nil {
+		return err
+	}
+
+	var items = make([]*admin.GetQuestionInCptResponse_QuestionItem, 0, len(list))
+	for _, item := range list {
+		items = append(items, &admin.GetQuestionInCptResponse_QuestionItem{
+			Id:          int32(item.ID),
+			Title:       item.Title,
+			Tag:         strings.Split(item.Tag, ","),
+			Degree:      int32(item.Degree),
+			PassingRate: item.PassingRate,
+			OwnerId:     int32(item.OwnerID),
+			Content:     item.Content,
+			Answer:      item.Answer,
+			Status:      int32(item.Status),
+		})
+	}
+
+	response.NorResponse(ctx.Context, &admin.GetQuestionInCptResponse{
+		QuestionList: items,
+		Total:        int32(count),
+	}, "查询成功！")
+	return nil
+}
+
+func (c *Competition) GetQuestionBesideCpt(ctx *ctx.Context) error {
+	params := &admin.GetQuestionBesideCptRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	list, count, err := c.CompetitionService.GetQuestionBesideCpt(ctx.Ctx(), params)
+	if err != nil {
+		return err
+	}
+
+	var items = make([]*admin.GetQuestionBesideCptResponse_QuestionItem, 0, len(list))
+	for _, item := range list {
+		items = append(items, &admin.GetQuestionBesideCptResponse_QuestionItem{
+			Id:          int32(item.ID),
+			Title:       item.Title,
+			Tag:         strings.Split(item.Tag, ","),
+			Degree:      int32(item.Degree),
+			PassingRate: item.PassingRate,
+			OwnerId:     int32(item.OwnerID),
+			Content:     item.Content,
+			Answer:      item.Answer,
+			Status:      int32(item.Status),
+		})
+	}
+
+	response.NorResponse(ctx.Context, &admin.GetQuestionBesideCptResponse{
+		QuestionList: items,
+		Total:        int32(count),
+	}, "查询成功！")
+	return nil
+}
+
+func (c *Competition) AddQuestionToCpt(ctx *ctx.Context) error {
+	params := &admin.AddQuestionToCptRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := c.CompetitionService.AddQuestionToCpt(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.AddQuestionToCptResponse{}, "添加成功！")
+	return nil
+}
+
+func (c *Competition) ExcludeQuestionFromCpt(ctx *ctx.Context) error {
+	params := &admin.ExcludeQuestionFromCptRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	if result := c.CompetitionService.ExcludeQuestionFromCpt(ctx.Ctx(), params); result != nil {
+		return result
+	}
+
+	response.NorResponse(ctx.Context, &admin.ExcludeQuestionFromCptResponse{}, "删除成功！")
+	return nil
+}

@@ -248,3 +248,419 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateCompetitionResponseValidationError{}
+
+// Validate checks the field values on AddQuestionToCptRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddQuestionToCptRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddQuestionToCptRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddQuestionToCptRequestMultiError, or nil if none found.
+func (m *AddQuestionToCptRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddQuestionToCptRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for CompetitionId
+
+	if len(errors) > 0 {
+		return AddQuestionToCptRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddQuestionToCptRequestMultiError is an error wrapping multiple validation
+// errors returned by AddQuestionToCptRequest.ValidateAll() if the designated
+// constraints aren't met.
+type AddQuestionToCptRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddQuestionToCptRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddQuestionToCptRequestMultiError) AllErrors() []error { return m }
+
+// AddQuestionToCptRequestValidationError is the validation error returned by
+// AddQuestionToCptRequest.Validate if the designated constraints aren't met.
+type AddQuestionToCptRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddQuestionToCptRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddQuestionToCptRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddQuestionToCptRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddQuestionToCptRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddQuestionToCptRequestValidationError) ErrorName() string {
+	return "AddQuestionToCptRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddQuestionToCptRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddQuestionToCptRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddQuestionToCptRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddQuestionToCptRequestValidationError{}
+
+// Validate checks the field values on AddQuestionToCptResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *AddQuestionToCptResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on AddQuestionToCptResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// AddQuestionToCptResponseMultiError, or nil if none found.
+func (m *AddQuestionToCptResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *AddQuestionToCptResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return AddQuestionToCptResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// AddQuestionToCptResponseMultiError is an error wrapping multiple validation
+// errors returned by AddQuestionToCptResponse.ValidateAll() if the designated
+// constraints aren't met.
+type AddQuestionToCptResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AddQuestionToCptResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AddQuestionToCptResponseMultiError) AllErrors() []error { return m }
+
+// AddQuestionToCptResponseValidationError is the validation error returned by
+// AddQuestionToCptResponse.Validate if the designated constraints aren't met.
+type AddQuestionToCptResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AddQuestionToCptResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AddQuestionToCptResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AddQuestionToCptResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AddQuestionToCptResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AddQuestionToCptResponseValidationError) ErrorName() string {
+	return "AddQuestionToCptResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e AddQuestionToCptResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAddQuestionToCptResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AddQuestionToCptResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AddQuestionToCptResponseValidationError{}
+
+// Validate checks the field values on ExcludeQuestionFromCptRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ExcludeQuestionFromCptRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ExcludeQuestionFromCptRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ExcludeQuestionFromCptRequestMultiError, or nil if none found.
+func (m *ExcludeQuestionFromCptRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ExcludeQuestionFromCptRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for CompetitionId
+
+	// no validation rules for QuestionId
+
+	if len(errors) > 0 {
+		return ExcludeQuestionFromCptRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ExcludeQuestionFromCptRequestMultiError is an error wrapping multiple
+// validation errors returned by ExcludeQuestionFromCptRequest.ValidateAll()
+// if the designated constraints aren't met.
+type ExcludeQuestionFromCptRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ExcludeQuestionFromCptRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ExcludeQuestionFromCptRequestMultiError) AllErrors() []error { return m }
+
+// ExcludeQuestionFromCptRequestValidationError is the validation error
+// returned by ExcludeQuestionFromCptRequest.Validate if the designated
+// constraints aren't met.
+type ExcludeQuestionFromCptRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ExcludeQuestionFromCptRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ExcludeQuestionFromCptRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ExcludeQuestionFromCptRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ExcludeQuestionFromCptRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ExcludeQuestionFromCptRequestValidationError) ErrorName() string {
+	return "ExcludeQuestionFromCptRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ExcludeQuestionFromCptRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sExcludeQuestionFromCptRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ExcludeQuestionFromCptRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ExcludeQuestionFromCptRequestValidationError{}
+
+// Validate checks the field values on ExcludeQuestionFromCptResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ExcludeQuestionFromCptResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ExcludeQuestionFromCptResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ExcludeQuestionFromCptResponseMultiError, or nil if none found.
+func (m *ExcludeQuestionFromCptResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ExcludeQuestionFromCptResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return ExcludeQuestionFromCptResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ExcludeQuestionFromCptResponseMultiError is an error wrapping multiple
+// validation errors returned by ExcludeQuestionFromCptResponse.ValidateAll()
+// if the designated constraints aren't met.
+type ExcludeQuestionFromCptResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ExcludeQuestionFromCptResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ExcludeQuestionFromCptResponseMultiError) AllErrors() []error { return m }
+
+// ExcludeQuestionFromCptResponseValidationError is the validation error
+// returned by ExcludeQuestionFromCptResponse.Validate if the designated
+// constraints aren't met.
+type ExcludeQuestionFromCptResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ExcludeQuestionFromCptResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ExcludeQuestionFromCptResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ExcludeQuestionFromCptResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ExcludeQuestionFromCptResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ExcludeQuestionFromCptResponseValidationError) ErrorName() string {
+	return "ExcludeQuestionFromCptResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ExcludeQuestionFromCptResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sExcludeQuestionFromCptResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ExcludeQuestionFromCptResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ExcludeQuestionFromCptResponseValidationError{}

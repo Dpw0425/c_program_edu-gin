@@ -27,3 +27,50 @@ message CompetitionListResponse {
   repeated CompetitionItem competition_list = 1 [(tagger.tags) = "binding:\"required\""];
   int32 total = 2 [(tagger.tags) = "binding:\"required\""];
 }
+
+message GetQuestionInCptRequest {
+  int32 page = 1 [(tagger.tags) = "form:\"page\""];
+  int32 number = 2 [(tagger.tags) = "form:\"number\""];
+  int32 id = 3 [(tagger.tags) = "form:\"id\""];
+}
+
+message GetQuestionInCptResponse {
+  message QuestionItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string title = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string tag = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 degree = 4 [(tagger.tags) = "binding:\"required\""];
+    float passing_rate = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 6 [(tagger.tags) = "binding:\"required\""];
+    string content = 7 [(tagger.tags) = "binding:\"required\""];
+    string answer = 8 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 9 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated QuestionItem question_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}
+
+message GetQuestionBesideCptRequest {
+  int32 page = 1 [(tagger.tags) = "form:\"page\""];
+  int32 number = 2 [(tagger.tags) = "form:\"number\""];
+  int32 id = 3 [(tagger.tags) = "form:\"id\""];
+  string search = 4 [(tagger.tags) = "form:\"search\""];
+}
+
+message GetQuestionBesideCptResponse {
+  message QuestionItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string title = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string tag = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 degree = 4 [(tagger.tags) = "binding:\"required\""];
+    float passing_rate = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 6 [(tagger.tags) = "binding:\"required\""];
+    string content = 7 [(tagger.tags) = "binding:\"required\""];
+    string answer = 8 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 9 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated QuestionItem question_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}

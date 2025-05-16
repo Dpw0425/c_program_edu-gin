@@ -123,8 +123,11 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		BankService: bankService,
 	}
 	competitionRepo := repo.NewCompetition(db)
+	cptQueRepo := repo.NewCptQues(db)
 	competitionService := admin_service.CompetitionService{
 		CompetitionRepo: competitionRepo,
+		QuestionRepo:    questionRepo,
+		CptQueRepo:      cptQueRepo,
 	}
 	competition := &v1_2.Competition{
 		CompetitionService: competitionService,

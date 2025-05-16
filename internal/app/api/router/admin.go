@@ -74,10 +74,14 @@ func RegisterAdminRouter(secret string, router *gin.Engine, handler *admin.Handl
 
 		competition := v1.Group("/competition").Use(authorizer) // 比赛管理
 		{
-			competition.GET("/list", ctx.HandlerFunc(handler.V1.Competition.List))        // 比赛列表
-			competition.POST("/add", ctx.HandlerFunc(handler.V1.Competition.Add))         // 创建比赛
-			competition.POST("/update", ctx.HandlerFunc(handler.V1.Competition.Update))   // 修改比赛
-			competition.DELETE("/delete", ctx.HandlerFunc(handler.V1.Competition.Delete)) // 删除比赛
+			competition.GET("/list", ctx.HandlerFunc(handler.V1.Competition.List))                                  // 比赛列表
+			competition.POST("/add", ctx.HandlerFunc(handler.V1.Competition.Add))                                   // 创建比赛
+			competition.POST("/update", ctx.HandlerFunc(handler.V1.Competition.Update))                             // 修改比赛
+			competition.DELETE("/delete", ctx.HandlerFunc(handler.V1.Competition.Delete))                           // 删除比赛
+			competition.GET("/get_question", ctx.HandlerFunc(handler.V1.Competition.GetQuestionInCpt))              // 获取比赛内题目
+			competition.GET("/get_beside", ctx.HandlerFunc(handler.V1.Competition.GetQuestionBesideCpt))            // 获取非比赛内题目
+			competition.POST("/add_question", ctx.HandlerFunc(handler.V1.Competition.AddQuestionToCpt))             // 新增题目
+			competition.DELETE("/exclude_question", ctx.HandlerFunc(handler.V1.Competition.ExcludeQuestionFromCpt)) // 移除题目
 		}
 	}
 }
