@@ -1,0 +1,24 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/bank;web";
+
+import "third_party/tagger/tagger.proto";
+
+message GetAllBankRequest {
+  int32 grade = 1 [(tagger.tags) = "form:\"grade\""];
+}
+
+message GetAllBankResponse {
+  message BankItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string name = 2 [(tagger.tags) = "binding:\"required\""];
+    string content = 3 [(tagger.tags) = "binding:\"required\""];
+    repeated string open_grade = 4 [(tagger.tags) = "binding:\"required\""];
+    int32 participants = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 completed = 6 [(tagger.tags) = "binding:\"required\""];
+    int32 count = 7 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated BankItem bank_list = 1 [(tagger.tags) = "binding:\"required\""];
+}

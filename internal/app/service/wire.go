@@ -18,6 +18,9 @@ var WebProviderSet = wire.NewSet(
 
 	wire.Struct(new(service.QuestionService), "*"),
 	wire.Bind(new(service.IQuestionService), new(*service.QuestionService)),
+
+	wire.Struct(new(service.BankService), "*"),
+	wire.Bind(new(service.IBankService), new(*service.BankService)),
 )
 
 var AdminProviderSet = wire.NewSet(

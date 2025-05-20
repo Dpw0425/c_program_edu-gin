@@ -72,11 +72,19 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	question := &v1.Question{
 		QuestionService: questionService,
 	}
+	bankRepo := repo.NewBanks(db)
+	bankService := service.BankService{
+		BankRepo: bankRepo,
+	}
+	bank := &v1.Bank{
+		BankService: bankService,
+	}
 	webV1 := &web.V1{
 		Common:   common,
 		User:     user,
 		Upload:   upload,
 		Question: question,
+		Bank:     bank,
 	}
 	webHandler := &web.Handler{
 		V1: webV1,
@@ -112,15 +120,14 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 	auth := &v1_2.Auth{
 		AuthService: authService,
 	}
-	bankRepo := repo.NewBanks(db)
 	bankQueRepo := repo.NewBankQue(db)
-	bankService := admin_service.BankService{
+	admin_serviceBankService := admin_service.BankService{
 		QuestionRepo: questionRepo,
 		BankRepo:     bankRepo,
 		BankQueRepo:  bankQueRepo,
 	}
-	bank := &v1_2.Bank{
-		BankService: bankService,
+	v1Bank := &v1_2.Bank{
+		BankService: admin_serviceBankService,
 	}
 	competitionRepo := repo.NewCompetition(db)
 	cptQueRepo := repo.NewCptQues(db)
@@ -137,7 +144,7 @@ func NewHttpInjector(conf *config.Config) *api.AppProvider {
 		Question:    v1Question,
 		Tag:         tag,
 		Auth:        auth,
-		Bank:        bank,
+		Bank:        v1Bank,
 		Competition: competition,
 	}
 	adminHandler := &admin.Handler{
