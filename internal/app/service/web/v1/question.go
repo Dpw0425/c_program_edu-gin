@@ -31,7 +31,7 @@ func (q *QuestionService) List(ctx context.Context, request *web.GetQuestionList
 		return items, nil
 	}
 
-	err := db.Table("questions").Select("id", "title", "tag", "degree", "owner_id", "passing_rate").Where("title LIKE ?", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
+	err := db.Table("questions").Where("title LIKE ? AND status = 0", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
 	if err != nil {
 		return nil, myErr.NotFound("", err.Error())
 	}

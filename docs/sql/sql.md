@@ -154,3 +154,13 @@
 | manager           | bigint          | 队长 ID  |             |
 | member            | longtext        | 团队成员   |             |
 | competition_times | bigint unsigned | 参与比赛次数 |             |
+
+### 标签表 (`tags`)
+
+| 属性         | 数据类型            | 说明    | 备注          |
+|------------|-----------------|-------|-------------|
+| id         | bigint unsigned | 自增 ID | primary key |
+| created_at | time            | 创建时间  |             |
+| updated_at | time            | 修改时间  |             |
+| deleted_at | time            | 删除时间  |             |
+| name       | longtext        | 标签名称  |             |

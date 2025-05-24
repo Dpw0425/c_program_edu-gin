@@ -38,7 +38,7 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 			question.GET("/list", ctx.HandlerFunc(handler.V1.Question.List)) // 题目列表
 		}
 
-		bank := v1.Group("/bank")
+		bank := v1.Group("/bank").Use(authorizer)
 		{
 			bank.GET("/list", ctx.HandlerFunc(handler.V1.Bank.List)) // 题库列表
 		}
