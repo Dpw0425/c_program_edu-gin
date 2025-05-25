@@ -12,6 +12,8 @@ var _ IQuestionService = (*QuestionService)(nil)
 
 type IQuestionService interface {
 	List(ctx context.Context, request *web.GetQuestionListRequest) ([]*schema.QuestionItem, error)
+	Detail(ctx context.Context, request *web.GetQuestionDetailRequest) (*schema.QuestionItem, error)
+	TestData(ctx context.Context, request *web.GetTestDataListRequest) ([]*schema.TestDataItem, error)
 }
 
 type QuestionService struct {
@@ -37,4 +39,28 @@ func (q *QuestionService) List(ctx context.Context, request *web.GetQuestionList
 	}
 
 	return items, nil
+}
+
+func (q *QuestionService) Detail(ctx context.Context, request *web.GetQuestionDetailRequest) (*schema.QuestionItem, error) {
+	db := q.QuestionRepo.DB.WithContext(ctx)
+	var item *schema.QuestionItem
+
+	err := db.Table("questions").Where("id = ?", request.Id).Scan(&item).Error
+	if err != nil {
+		return nil, myErr.NotFound("", err.Error())
+	}
+
+	return item, nil
+}
+
+func (q *QuestionService) TestData(ctx context.Context, request *web.GetTestDataListRequest) ([]*schema.TestDataItem, error) {
+	db := q.QuestionRepo.DB.WithContext(ctx)
+	var item []*schema.TestDataItem
+
+	err := db.Table("test_data").Where("question_id = ?", request.Id).Scan(&item).Error
+	if err != nil {
+		return nil, myErr.NotFound("", err.Error())
+	}
+
+	return item, nil
 }

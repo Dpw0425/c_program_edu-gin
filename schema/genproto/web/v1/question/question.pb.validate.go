@@ -281,6 +281,481 @@ var _ interface {
 	ErrorName() string
 } = GetQuestionListResponseValidationError{}
 
+// Validate checks the field values on GetQuestionDetailRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetQuestionDetailRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetQuestionDetailRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetQuestionDetailRequestMultiError, or nil if none found.
+func (m *GetQuestionDetailRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetQuestionDetailRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return GetQuestionDetailRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetQuestionDetailRequestMultiError is an error wrapping multiple validation
+// errors returned by GetQuestionDetailRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetQuestionDetailRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetQuestionDetailRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetQuestionDetailRequestMultiError) AllErrors() []error { return m }
+
+// GetQuestionDetailRequestValidationError is the validation error returned by
+// GetQuestionDetailRequest.Validate if the designated constraints aren't met.
+type GetQuestionDetailRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetQuestionDetailRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetQuestionDetailRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetQuestionDetailRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetQuestionDetailRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetQuestionDetailRequestValidationError) ErrorName() string {
+	return "GetQuestionDetailRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetQuestionDetailRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetQuestionDetailRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetQuestionDetailRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetQuestionDetailRequestValidationError{}
+
+// Validate checks the field values on GetQuestionDetailResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetQuestionDetailResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetQuestionDetailResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetQuestionDetailResponseMultiError, or nil if none found.
+func (m *GetQuestionDetailResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetQuestionDetailResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetQuestionItem()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetQuestionDetailResponseValidationError{
+					field:  "QuestionItem",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetQuestionDetailResponseValidationError{
+					field:  "QuestionItem",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetQuestionItem()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetQuestionDetailResponseValidationError{
+				field:  "QuestionItem",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetQuestionDetailResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetQuestionDetailResponseMultiError is an error wrapping multiple validation
+// errors returned by GetQuestionDetailResponse.ValidateAll() if the
+// designated constraints aren't met.
+type GetQuestionDetailResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetQuestionDetailResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetQuestionDetailResponseMultiError) AllErrors() []error { return m }
+
+// GetQuestionDetailResponseValidationError is the validation error returned by
+// GetQuestionDetailResponse.Validate if the designated constraints aren't met.
+type GetQuestionDetailResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetQuestionDetailResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetQuestionDetailResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetQuestionDetailResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetQuestionDetailResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetQuestionDetailResponseValidationError) ErrorName() string {
+	return "GetQuestionDetailResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetQuestionDetailResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetQuestionDetailResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetQuestionDetailResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetQuestionDetailResponseValidationError{}
+
+// Validate checks the field values on GetTestDataListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTestDataListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTestDataListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetTestDataListRequestMultiError, or nil if none found.
+func (m *GetTestDataListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTestDataListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return GetTestDataListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTestDataListRequestMultiError is an error wrapping multiple validation
+// errors returned by GetTestDataListRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GetTestDataListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTestDataListRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTestDataListRequestMultiError) AllErrors() []error { return m }
+
+// GetTestDataListRequestValidationError is the validation error returned by
+// GetTestDataListRequest.Validate if the designated constraints aren't met.
+type GetTestDataListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTestDataListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTestDataListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTestDataListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTestDataListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTestDataListRequestValidationError) ErrorName() string {
+	return "GetTestDataListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTestDataListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTestDataListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTestDataListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTestDataListRequestValidationError{}
+
+// Validate checks the field values on GetTestDataListResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetTestDataListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTestDataListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetTestDataListResponseMultiError, or nil if none found.
+func (m *GetTestDataListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTestDataListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetTestData() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetTestDataListResponseValidationError{
+						field:  fmt.Sprintf("TestData[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetTestDataListResponseValidationError{
+						field:  fmt.Sprintf("TestData[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetTestDataListResponseValidationError{
+					field:  fmt.Sprintf("TestData[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetTestDataListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTestDataListResponseMultiError is an error wrapping multiple validation
+// errors returned by GetTestDataListResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GetTestDataListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTestDataListResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTestDataListResponseMultiError) AllErrors() []error { return m }
+
+// GetTestDataListResponseValidationError is the validation error returned by
+// GetTestDataListResponse.Validate if the designated constraints aren't met.
+type GetTestDataListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTestDataListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTestDataListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTestDataListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTestDataListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTestDataListResponseValidationError) ErrorName() string {
+	return "GetTestDataListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTestDataListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTestDataListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTestDataListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTestDataListResponseValidationError{}
+
 // Validate checks the field values on GetQuestionListResponse_QuestionItem
 // with the rules defined in the proto definition for this message. If any
 // rules are violated, the first error encountered is returned, or nil if
@@ -395,3 +870,230 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetQuestionListResponse_QuestionItemValidationError{}
+
+// Validate checks the field values on GetQuestionDetailResponse_QuestionItem
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GetQuestionDetailResponse_QuestionItem) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// GetQuestionDetailResponse_QuestionItem with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// GetQuestionDetailResponse_QuestionItemMultiError, or nil if none found.
+func (m *GetQuestionDetailResponse_QuestionItem) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetQuestionDetailResponse_QuestionItem) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Title
+
+	// no validation rules for Degree
+
+	// no validation rules for PassingRate
+
+	// no validation rules for OwnerId
+
+	// no validation rules for Content
+
+	if len(errors) > 0 {
+		return GetQuestionDetailResponse_QuestionItemMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetQuestionDetailResponse_QuestionItemMultiError is an error wrapping
+// multiple validation errors returned by
+// GetQuestionDetailResponse_QuestionItem.ValidateAll() if the designated
+// constraints aren't met.
+type GetQuestionDetailResponse_QuestionItemMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetQuestionDetailResponse_QuestionItemMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetQuestionDetailResponse_QuestionItemMultiError) AllErrors() []error { return m }
+
+// GetQuestionDetailResponse_QuestionItemValidationError is the validation
+// error returned by GetQuestionDetailResponse_QuestionItem.Validate if the
+// designated constraints aren't met.
+type GetQuestionDetailResponse_QuestionItemValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetQuestionDetailResponse_QuestionItemValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetQuestionDetailResponse_QuestionItemValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetQuestionDetailResponse_QuestionItemValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetQuestionDetailResponse_QuestionItemValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetQuestionDetailResponse_QuestionItemValidationError) ErrorName() string {
+	return "GetQuestionDetailResponse_QuestionItemValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetQuestionDetailResponse_QuestionItemValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetQuestionDetailResponse_QuestionItem.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetQuestionDetailResponse_QuestionItemValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetQuestionDetailResponse_QuestionItemValidationError{}
+
+// Validate checks the field values on GetTestDataListResponse_TestData with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *GetTestDataListResponse_TestData) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetTestDataListResponse_TestData with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// GetTestDataListResponse_TestDataMultiError, or nil if none found.
+func (m *GetTestDataListResponse_TestData) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetTestDataListResponse_TestData) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Input
+
+	// no validation rules for Output
+
+	if len(errors) > 0 {
+		return GetTestDataListResponse_TestDataMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetTestDataListResponse_TestDataMultiError is an error wrapping multiple
+// validation errors returned by
+// GetTestDataListResponse_TestData.ValidateAll() if the designated
+// constraints aren't met.
+type GetTestDataListResponse_TestDataMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetTestDataListResponse_TestDataMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetTestDataListResponse_TestDataMultiError) AllErrors() []error { return m }
+
+// GetTestDataListResponse_TestDataValidationError is the validation error
+// returned by GetTestDataListResponse_TestData.Validate if the designated
+// constraints aren't met.
+type GetTestDataListResponse_TestDataValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetTestDataListResponse_TestDataValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetTestDataListResponse_TestDataValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetTestDataListResponse_TestDataValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetTestDataListResponse_TestDataValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetTestDataListResponse_TestDataValidationError) ErrorName() string {
+	return "GetTestDataListResponse_TestDataValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetTestDataListResponse_TestDataValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetTestDataListResponse_TestData.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetTestDataListResponse_TestDataValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetTestDataListResponse_TestDataValidationError{}

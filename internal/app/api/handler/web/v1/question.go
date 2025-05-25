@@ -42,3 +42,51 @@ func (q *Question) List(ctx *ctx.Context) error {
 	}, "查询成功！")
 	return nil
 }
+
+func (q *Question) Detail(ctx *ctx.Context) error {
+	params := &web.GetQuestionDetailRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	item, err := q.QuestionService.Detail(ctx.Ctx(), params)
+	if err != nil {
+		return err
+	}
+
+	result := &web.GetQuestionDetailResponse_QuestionItem{
+		Id:          int32(item.ID),
+		Title:       item.Title,
+		Tag:         strings.Split(item.Tag, ","),
+		Degree:      int32(item.Degree),
+		PassingRate: item.PassingRate,
+		OwnerId:     int32(item.OwnerID),
+		Content:     item.Content,
+	}
+
+	response.NorResponse(ctx.Context, &web.GetQuestionDetailResponse{QuestionItem: result}, "查询成功！")
+	return nil
+}
+
+func (q *Question) TestData(ctx *ctx.Context) error {
+	params := &web.GetTestDataListRequest{}
+	if err := ctx.Context.ShouldBindQuery(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	list, err := q.QuestionService.TestData(ctx.Ctx(), params)
+	if err != nil {
+		return err
+	}
+
+	items := make([]*web.GetTestDataListResponse_TestData, 0, len(list))
+	for _, item := range list {
+		items = append(items, &web.GetTestDataListResponse_TestData{
+			Input:  item.Input,
+			Output: item.Output,
+		})
+	}
+
+	response.NorResponse(ctx.Context, &web.GetTestDataListResponse{TestData: items}, "查询成功！")
+	return nil
+}
