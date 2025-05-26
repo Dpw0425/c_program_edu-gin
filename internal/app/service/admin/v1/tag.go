@@ -7,6 +7,7 @@ import (
 	myErr "c_program_edu-gin/pkg/error"
 	admin "c_program_edu-gin/schema/genproto/admin/v1/tag"
 	"context"
+	"gorm.io/gorm"
 	"strings"
 )
 
@@ -58,7 +59,8 @@ func (t *TagService) List(ctx context.Context, request *admin.TagListRequest) ([
 }
 
 func (t *TagService) Update(ctx context.Context, request *admin.TagUpdateRequest) error {
-	db := t.TagRepo.DB.WithContext(ctx).Begin()
+	newDB := t.TagRepo.DB.Session(&gorm.Session{NewDB: true})
+	db := newDB.WithContext(ctx).Begin()
 
 	// 查找原标签
 	var tag *model.Tag

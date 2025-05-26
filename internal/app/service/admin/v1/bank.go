@@ -7,6 +7,7 @@ import (
 	myErr "c_program_edu-gin/pkg/error"
 	admin "c_program_edu-gin/schema/genproto/admin/v1/bank"
 	"context"
+	"gorm.io/gorm"
 	"strings"
 )
 
@@ -44,7 +45,8 @@ func (b *BankService) List(ctx context.Context, request *admin.BankListRequest) 
 }
 
 func (b *BankService) Add(ctx context.Context, request *admin.AddBankRequest) error {
-	tx := b.BankRepo.DB.WithContext(ctx).Begin()
+	newDB := b.BankRepo.DB.Session(&gorm.Session{NewDB: true})
+	tx := newDB.WithContext(ctx).Begin()
 
 	if b.BankRepo.IsExist(ctx, request.Name) {
 		return myErr.BadRequest("", "题目已存在！")
@@ -63,7 +65,8 @@ func (b *BankService) Add(ctx context.Context, request *admin.AddBankRequest) er
 		tx.Commit()
 		return nil
 	} else {
-		tx1 := b.BankQueRepo.DB.WithContext(ctx).Begin()
+		newDB1 := b.BankQueRepo.DB.Session(&gorm.Session{NewDB: true})
+		tx1 := newDB1.WithContext(ctx).Begin()
 		var id uint
 		err := tx.Table("question_banks").Select("id").Where("name = ?", request.Name).Scan(&id).Error
 		if err != nil {
@@ -90,7 +93,8 @@ func (b *BankService) Add(ctx context.Context, request *admin.AddBankRequest) er
 }
 
 func (b *BankService) Update(ctx context.Context, request *admin.UpdateBankRequest) error {
-	tx := b.BankQueRepo.DB.WithContext(ctx).Begin()
+	newDB := b.BankQueRepo.DB.Session(&gorm.Session{NewDB: true})
+	tx := newDB.WithContext(ctx).Begin()
 
 	_, err := b.BankRepo.UpdateByID(ctx, uint(request.Id), map[string]any{
 		"content":    request.Content,
@@ -119,8 +123,10 @@ func (b *BankService) Update(ctx context.Context, request *admin.UpdateBankReque
 }
 
 func (b *BankService) Delete(ctx context.Context, request *admin.DeleteBankRequest) error {
-	tx := b.BankRepo.DB.WithContext(ctx).Begin()
-	tx1 := b.BankQueRepo.DB.WithContext(ctx).Begin()
+	newDB := b.BankRepo.DB.Session(&gorm.Session{NewDB: true})
+	tx := newDB.WithContext(ctx).Begin()
+	newDB1 := b.BankQueRepo.DB.Session(&gorm.Session{NewDB: true})
+	tx1 := newDB1.WithContext(ctx).Begin()
 
 	if err := tx.Unscoped().Where("id = ?", request.Id).Delete(&model.QuestionBank{}).Error; err != nil {
 		tx.Rollback()

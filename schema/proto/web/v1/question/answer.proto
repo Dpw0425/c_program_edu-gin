@@ -1,0 +1,15 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/question;web";
+
+import "third_party/tagger/tagger.proto";
+
+message CommitAnswerRequest {
+  int32 question_id = 1 [(tagger.tags) = "binding:\"required\""];
+  string answer = 2 [(tagger.tags) = "binding:\"required\""];
+}
+
+message CommitAnswerResponse {
+  string result = 1 [(tagger.tags) = "binding:\"required\""];
+}

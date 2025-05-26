@@ -7,6 +7,7 @@ import (
 	myErr "c_program_edu-gin/pkg/error"
 	admin "c_program_edu-gin/schema/genproto/admin/v1/competition"
 	"context"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -141,7 +142,8 @@ func (c *CompetitionService) GetQuestionBesideCpt(ctx context.Context, request *
 }
 
 func (c *CompetitionService) AddQuestionToCpt(ctx context.Context, request *admin.AddQuestionToCptRequest) error {
-	tx := c.CptQueRepo.DB.WithContext(ctx).Begin()
+	newDB := c.CptQueRepo.DB.Session(&gorm.Session{NewDB: true})
+	tx := newDB.WithContext(ctx).Begin()
 
 	for _, questionId := range request.Ids {
 		err := tx.Create(&model.CptQue{

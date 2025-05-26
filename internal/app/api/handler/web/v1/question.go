@@ -90,3 +90,18 @@ func (q *Question) TestData(ctx *ctx.Context) error {
 	response.NorResponse(ctx.Context, &web.GetTestDataListResponse{TestData: items}, "查询成功！")
 	return nil
 }
+
+func (q *Question) CommitAnswer(ctx *ctx.Context) error {
+	params := &web.CommitAnswerRequest{}
+	if err := ctx.Context.ShouldBind(&params); err != nil {
+		return myErr.BadRequest("wrong_parameters", "请求参数错误！")
+	}
+
+	result, err := q.QuestionService.CommitAnswer(ctx.Ctx(), params, ctx.UserID())
+	if err != nil {
+		return err
+	}
+
+	response.NorResponse(ctx.Context, &web.CommitAnswerResponse{Result: result}, "提交成功！")
+	return nil
+}
