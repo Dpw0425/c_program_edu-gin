@@ -14,7 +14,7 @@ import (
 var _ IQuestionService = (*QuestionService)(nil)
 
 type IQuestionService interface {
-	List(ctx context.Context, request *web.GetQuestionListRequest) ([]*schema.QuestionItem, error)
+	List(ctx context.Context, request *web.GetQuestionListRequest) ([]*schema.QuestionItem, int, error)
 	Detail(ctx context.Context, request *web.GetQuestionDetailRequest) (*schema.QuestionItem, error)
 	TestData(ctx context.Context, request *web.GetTestDataListRequest) ([]*schema.TestDataItem, error)
 	CommitAnswer(ctx context.Context, request *web.CommitAnswerRequest, userId int64) (string, error)
@@ -24,25 +24,28 @@ type QuestionService struct {
 	QuestionRepo *repo.QuestionRepo
 }
 
-func (q *QuestionService) List(ctx context.Context, request *web.GetQuestionListRequest) ([]*schema.QuestionItem, error) {
+func (q *QuestionService) List(ctx context.Context, request *web.GetQuestionListRequest) ([]*schema.QuestionItem, int, error) {
 	db := q.QuestionRepo.DB.WithContext(ctx)
 	var items []*schema.QuestionItem
 
 	if request.Search == "热点题目" {
 		err := db.Table("questions").Select("id", "title", "passing_rate").Order("passing_rate ASC").Limit(5).Scan(&items).Error
 		if err != nil {
-			return nil, myErr.NotFound("", err.Error())
+			return nil, 0, myErr.NotFound("", err.Error())
 		}
 
-		return items, nil
+		return items, 0, nil
 	}
 
 	err := db.Table("questions").Where("title LIKE ? AND status = 0", "%"+request.Search+"%").Limit(int(request.Number)).Offset(int((request.Page - 1) * request.Number)).Scan(&items).Error
 	if err != nil {
-		return nil, myErr.NotFound("", err.Error())
+		return nil, 0, myErr.NotFound("", err.Error())
 	}
 
-	return items, nil
+	var count int64
+	db.Table("questions").Count(&count)
+
+	return items, int(count), nil
 }
 
 func (q *QuestionService) Detail(ctx context.Context, request *web.GetQuestionDetailRequest) (*schema.QuestionItem, error) {

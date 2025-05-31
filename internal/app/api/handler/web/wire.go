@@ -11,6 +11,7 @@ var ProviderSet = wire.NewSet(
 	wire.Struct(new(v1.Upload), "*"),
 	wire.Struct(new(v1.Question), "*"),
 	wire.Struct(new(v1.Bank), "*"),
+	wire.Struct(new(v1.Competition), "*"),
 
 	wire.Struct(new(V1), "*"),
 )

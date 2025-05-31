@@ -45,5 +45,10 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 		{
 			bank.GET("/list", ctx.HandlerFunc(handler.V1.Bank.List)) // 题库列表
 		}
+
+		competition := v1.Group("/competition")
+		{
+			competition.GET("/list", ctx.HandlerFunc(handler.V1.Competition.List)) // 比赛列表
+		}
 	}
 }
