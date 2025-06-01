@@ -9,6 +9,7 @@ import (
 	"c_program_edu-gin/utils/judge"
 	"context"
 	"gorm.io/gorm"
+	"math"
 )
 
 var _ IQuestionService = (*QuestionService)(nil)
@@ -100,7 +101,9 @@ func (q *QuestionService) CommitAnswer(ctx context.Context, request *web.CommitA
 		result = "Accepted"
 	}
 
-	if tx.Table("user_ques").Where("user_id = ? AND question_id = ?", userId, request.QuestionId).RowsAffected == 0 {
+	var isExist int64
+	tx.Table("user_ques").Where("user_id = ? AND question_id = ?", userId, request.QuestionId).Count(&isExist)
+	if isExist == 0 {
 		if err := tx.Table("user_ques").Create(&model.UserQue{
 			UserID:      userId,
 			QuestionID:  uint(request.QuestionId),
@@ -119,6 +122,18 @@ func (q *QuestionService) CommitAnswer(ctx context.Context, request *web.CommitA
 			return "", myErr.BadRequest("", "提交失败！")
 		}
 	}
+
+	var accepted int64
+	var total int64
+	tx.Table("user_ques").Where("question_id = ? AND status = 'Accepted'", request.QuestionId).Count(&accepted)
+	tx.Table("user_ques").Where("question_id = ?", request.QuestionId).Count(&total)
+
+	var passingRate float32
+	passingRate = float32(math.Round(((float64(accepted)/float64(total))*100)*10) / 10)
+
+	tx.Table("questions").Where("id = ?", request.QuestionId).Updates(map[string]any{
+		"passing_rate": passingRate,
+	})
 
 	tx.Commit()
 	return result, nil
