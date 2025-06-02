@@ -13,6 +13,7 @@ import (
 	"c_program_edu-gin/pkg/response"
 	web "c_program_edu-gin/schema/genproto/web/v1/user"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -133,4 +134,36 @@ func (u *User) toBlackList(ctx *ctx.Context) {
 			_ = u.JwtTokenStorage.SetBlackList(ctx.Ctx(), session.Token, time.Duration(ex)*time.Second)
 		}
 	}
+}
+
+func (u *User) Personal(ctx *ctx.Context) error {
+	user, teamList, err := u.UserService.Personal(ctx.Ctx(), ctx.UserID())
+	if err != nil {
+		return err
+	}
+
+	var items = make([]*web.PersonalResponse_Team, 0, len(teamList))
+	for _, item := range teamList {
+		items = append(items, &web.PersonalResponse_Team{
+			Id:               int32(item.ID),
+			Name:             item.Name,
+			Manager:          item.Manager,
+			Member:           strings.Split(item.Member, ","),
+			CompetitionTimes: int32(item.CompetitionTimes),
+		})
+	}
+
+	response.NorResponse(ctx.Context, &web.PersonalResponse{
+		UserId:           strconv.FormatInt(user.UserID, 10),
+		UserName:         user.UserName,
+		StudentId:        user.StudentID,
+		Email:            user.Email,
+		Avatar:           user.Avatar,
+		Grade:            int32(user.Grade),
+		Status:           int32(user.Status),
+		TeamList:         items,
+		CompetitionTimes: int32(user.CompetitionTimes),
+		CommitTimes:      int32(user.CommitTimes),
+	}, "查询成功！")
+	return nil
 }

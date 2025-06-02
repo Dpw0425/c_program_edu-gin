@@ -18,6 +18,7 @@ type IUserService interface {
 	LoginByPassword(ctx context.Context, login *schema.UserLogin) (*model.User, error)
 	GetUserByEmail(ctx context.Context, email string) (*model.User, error)
 	GetUserByID(ctx context.Context, UserID int64) (*model.User, error)
+	Personal(ctx context.Context, UserID int64) (*schema.Personal, []*schema.TeamItem, error)
 }
 
 type UserService struct {
@@ -85,4 +86,42 @@ func (u *UserService) GetUserByID(ctx context.Context, UserID int64) (*model.Use
 	}
 
 	return user, nil
+}
+
+func (u *UserService) Personal(ctx context.Context, UserID int64) (*schema.Personal, []*schema.TeamItem, error) {
+	db := u.UserRepo.DB.WithContext(ctx)
+
+	user, err := u.UserRepo.FindByID(ctx, UserID)
+	if err != nil {
+		return nil, nil, myErr.BadRequest("", err.Error())
+	}
+
+	var teamList []*schema.TeamItem
+	db.Table("teams").Where("manager = ?", user.UserID).Or("FIND_IN_SET(?,member)", user.UserID).Scan(&teamList)
+
+	var question []*model.UserQue
+	db.Table("user_ques").Where("user_id = ?", user.UserID).Scan(&question)
+
+	var commitTimes int
+	for _, item := range question {
+		commitTimes += int(item.CommitTimes)
+	}
+
+	var competitionTimes int64
+	db.Table("competitions").Where("FIND_IN_SET(?,contestant)", user.UserID).Count(&competitionTimes)
+	for _, item := range teamList {
+		competitionTimes += int64(item.CompetitionTimes)
+	}
+
+	return &schema.Personal{
+		UserID:           user.UserID,
+		UserName:         user.UserName,
+		StudentID:        user.StudentID,
+		Grade:            user.Grade,
+		Status:           user.Status,
+		Email:            user.Email,
+		Avatar:           user.Avatar,
+		CompetitionTimes: int(competitionTimes),
+		CommitTimes:      commitTimes,
+	}, teamList, nil
 }

@@ -23,3 +23,15 @@ type UserItem struct {
 	Email     string `gorm:"column:email" json:"email"`
 	Avatar    string `gorm:"column:avatar" json:"avatar"`
 }
+
+type Personal struct {
+	UserID           int64  `gorm:"column:user_id" json:"user_id"`
+	UserName         string `gorm:"column:user_name" json:"user_name"`
+	StudentID        string `gorm:"column:student_id" json:"student_id"`
+	Grade            int    `gorm:"column:grade" json:"grade"`
+	Status           int    `gorm:"column:status" json:"status"`
+	Email            string `gorm:"column:email" json:"email"`
+	Avatar           string `gorm:"column:avatar" json:"avatar"`
+	CompetitionTimes int
+	CommitTimes      int
+}

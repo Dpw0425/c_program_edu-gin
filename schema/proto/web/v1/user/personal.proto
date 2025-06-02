@@ -1,0 +1,29 @@
+syntax = "proto3";
+package web;
+
+option go_package = "web/v1/user;web";
+
+// import "third_party/tagger/tagger.proto";
+
+message PersonalRequest {}
+
+message PersonalResponse {
+  message Team {
+    int32 id = 1;
+    string name = 2;
+    string manager = 3;
+    repeated string member = 4;
+    int32 competition_times = 5;
+  }
+
+  string user_id = 1;
+  string user_name = 2;
+  string student_id = 3;
+  string email = 4;
+  string avatar = 5;
+  int32 grade = 6;
+  int32 status = 7;
+  repeated Team team_list = 8;
+  int32 competition_times = 9;
+  int32 commit_times = 10;
+}

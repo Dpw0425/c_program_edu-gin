@@ -28,8 +28,9 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 			user.POST("/login", ctx.HandlerFunc(handler.V1.User.Login))       // 用户登录
 			userAuth := user.Group("").Use(authorizer)
 			{
-				userAuth.GET("/info", ctx.HandlerFunc(handler.V1.User.Info))        // 用户信息
-				userAuth.DELETE("/logout", ctx.HandlerFunc(handler.V1.User.Logout)) // 退出登录
+				userAuth.GET("/info", ctx.HandlerFunc(handler.V1.User.Info))         // 用户信息
+				userAuth.DELETE("/logout", ctx.HandlerFunc(handler.V1.User.Logout))  // 退出登录
+				userAuth.GET("/personal", ctx.HandlerFunc(handler.V1.User.Personal)) // 个人中心
 			}
 		}
 
