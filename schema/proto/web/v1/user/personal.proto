@@ -27,3 +27,13 @@ message PersonalResponse {
   int32 competition_times = 9;
   int32 commit_times = 10;
 }
+
+message TeamListResponse {
+  message TeamItem {
+    int32 id = 1;
+    string name = 2;
+    int32 competition_times = 3;
+  }
+
+  repeated TeamItem team_list = 1;
+}

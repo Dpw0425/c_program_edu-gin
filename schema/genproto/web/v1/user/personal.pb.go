@@ -177,6 +177,53 @@ func (x *PersonalResponse) GetCommitTimes() int32 {
 	return 0
 }
 
+type TeamListResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TeamList []*TeamListResponse_TeamItem `protobuf:"bytes,1,rep,name=team_list,json=teamList,proto3" json:"team_list,omitempty"`
+}
+
+func (x *TeamListResponse) Reset() {
+	*x = TeamListResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_personal_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TeamListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TeamListResponse) ProtoMessage() {}
+
+func (x *TeamListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_personal_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TeamListResponse.ProtoReflect.Descriptor instead.
+func (*TeamListResponse) Descriptor() ([]byte, []int) {
+	return file_personal_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TeamListResponse) GetTeamList() []*TeamListResponse_TeamItem {
+	if x != nil {
+		return x.TeamList
+	}
+	return nil
+}
+
 type PersonalResponse_Team struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -192,7 +239,7 @@ type PersonalResponse_Team struct {
 func (x *PersonalResponse_Team) Reset() {
 	*x = PersonalResponse_Team{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_personal_proto_msgTypes[2]
+		mi := &file_personal_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -205,7 +252,7 @@ func (x *PersonalResponse_Team) String() string {
 func (*PersonalResponse_Team) ProtoMessage() {}
 
 func (x *PersonalResponse_Team) ProtoReflect() protoreflect.Message {
-	mi := &file_personal_proto_msgTypes[2]
+	mi := &file_personal_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -256,6 +303,69 @@ func (x *PersonalResponse_Team) GetCompetitionTimes() int32 {
 	return 0
 }
 
+type TeamListResponse_TeamItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id               int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name             string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	CompetitionTimes int32  `protobuf:"varint,3,opt,name=competition_times,json=competitionTimes,proto3" json:"competition_times,omitempty"`
+}
+
+func (x *TeamListResponse_TeamItem) Reset() {
+	*x = TeamListResponse_TeamItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_personal_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TeamListResponse_TeamItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TeamListResponse_TeamItem) ProtoMessage() {}
+
+func (x *TeamListResponse_TeamItem) ProtoReflect() protoreflect.Message {
+	mi := &file_personal_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TeamListResponse_TeamItem.ProtoReflect.Descriptor instead.
+func (*TeamListResponse_TeamItem) Descriptor() ([]byte, []int) {
+	return file_personal_proto_rawDescGZIP(), []int{2, 0}
+}
+
+func (x *TeamListResponse_TeamItem) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *TeamListResponse_TeamItem) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *TeamListResponse_TeamItem) GetCompetitionTimes() int32 {
+	if x != nil {
+		return x.CompetitionTimes
+	}
+	return 0
+}
+
 var File_personal_proto protoreflect.FileDescriptor
 
 var file_personal_proto_rawDesc = []byte{
@@ -291,8 +401,19 @@ var file_personal_proto_rawDesc = []byte{
 	0x6d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x2b, 0x0a, 0x11, 0x63, 0x6f, 0x6d, 0x70, 0x65, 0x74,
 	0x69, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28,
 	0x05, 0x52, 0x10, 0x63, 0x6f, 0x6d, 0x70, 0x65, 0x74, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69,
-	0x6d, 0x65, 0x73, 0x42, 0x11, 0x5a, 0x0f, 0x77, 0x65, 0x62, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x73,
-	0x65, 0x72, 0x3b, 0x77, 0x65, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6d, 0x65, 0x73, 0x22, 0xac, 0x01, 0x0a, 0x10, 0x54, 0x65, 0x61, 0x6d, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x09, 0x74, 0x65, 0x61, 0x6d,
+	0x5f, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x77, 0x65,
+	0x62, 0x2e, 0x54, 0x65, 0x61, 0x6d, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x2e, 0x54, 0x65, 0x61, 0x6d, 0x49, 0x74, 0x65, 0x6d, 0x52, 0x08, 0x74, 0x65, 0x61,
+	0x6d, 0x4c, 0x69, 0x73, 0x74, 0x1a, 0x5b, 0x0a, 0x08, 0x54, 0x65, 0x61, 0x6d, 0x49, 0x74, 0x65,
+	0x6d, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69,
+	0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x2b, 0x0a, 0x11, 0x63, 0x6f, 0x6d, 0x70, 0x65, 0x74, 0x69,
+	0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x10, 0x63, 0x6f, 0x6d, 0x70, 0x65, 0x74, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x42, 0x11, 0x5a, 0x0f, 0x77, 0x65, 0x62, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x73, 0x65,
+	0x72, 0x3b, 0x77, 0x65, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -307,19 +428,22 @@ func file_personal_proto_rawDescGZIP() []byte {
 	return file_personal_proto_rawDescData
 }
 
-var file_personal_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_personal_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_personal_proto_goTypes = []interface{}{
-	(*PersonalRequest)(nil),       // 0: web.PersonalRequest
-	(*PersonalResponse)(nil),      // 1: web.PersonalResponse
-	(*PersonalResponse_Team)(nil), // 2: web.PersonalResponse.Team
+	(*PersonalRequest)(nil),           // 0: web.PersonalRequest
+	(*PersonalResponse)(nil),          // 1: web.PersonalResponse
+	(*TeamListResponse)(nil),          // 2: web.TeamListResponse
+	(*PersonalResponse_Team)(nil),     // 3: web.PersonalResponse.Team
+	(*TeamListResponse_TeamItem)(nil), // 4: web.TeamListResponse.TeamItem
 }
 var file_personal_proto_depIdxs = []int32{
-	2, // 0: web.PersonalResponse.team_list:type_name -> web.PersonalResponse.Team
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3, // 0: web.PersonalResponse.team_list:type_name -> web.PersonalResponse.Team
+	4, // 1: web.TeamListResponse.team_list:type_name -> web.TeamListResponse.TeamItem
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_personal_proto_init() }
@@ -353,7 +477,31 @@ func file_personal_proto_init() {
 			}
 		}
 		file_personal_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TeamListResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_personal_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PersonalResponse_Team); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_personal_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TeamListResponse_TeamItem); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -371,7 +519,7 @@ func file_personal_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_personal_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
