@@ -26,3 +26,9 @@ type WebCompetitionItem struct {
 	Permission int       `gorm:"column:permission" json:"permission"`
 	Quantity   int       `gorm:"column:quantity" json:"quantity"`
 }
+
+type Rank struct {
+	UserName    string `gorm:"column:user_name" json:"user_name"`
+	Score       int    `gorm:"column:score" json:"score"`
+	TotalCommit int    `gorm:"column:total_commit" json:"total_commit"`
+}

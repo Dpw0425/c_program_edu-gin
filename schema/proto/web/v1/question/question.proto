@@ -55,3 +55,21 @@ message GetTestDataListResponse {
 
   repeated TestData test_data = 1 [(tagger.tags) = "binding:\"required\""];
 }
+
+message GetQuestionInCompetitionRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message GetQuestionInCompetitionResponse {
+  message QuestionItem {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string title = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string tag = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 degree = 4 [(tagger.tags) = "binding:\"required\""];
+    float passing_rate = 5 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 6 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  repeated QuestionItem question_list = 1 [(tagger.tags) = "binding:\"required\""];
+  int32 total = 2 [(tagger.tags) = "binding:\"required\""];
+}

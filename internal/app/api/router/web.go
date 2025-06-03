@@ -49,7 +49,10 @@ func RegisterWebRouter(secret string, router *gin.Engine, handler *web.Handler, 
 
 		competition := v1.Group("/competition")
 		{
-			competition.GET("/list", ctx.HandlerFunc(handler.V1.Competition.List)) // 比赛列表
+			competition.GET("/list", ctx.HandlerFunc(handler.V1.Competition.List))                     // 比赛列表
+			competition.GET("/detail", authorizer, ctx.HandlerFunc(handler.V1.Competition.Detail))     // 比赛详情
+			competition.GET("/question_list", ctx.HandlerFunc(handler.V1.Competition.GetQuestionList)) // 比赛题单
+			competition.GET("/ranking", ctx.HandlerFunc(handler.V1.Competition.Ranking))               // 排名
 		}
 	}
 }

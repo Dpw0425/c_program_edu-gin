@@ -28,3 +28,38 @@ message GetCompetitionListResponse {
   repeated CompetitionItem competition_list = 1 [(tagger.tags) = "binding:\"required\""];
   int32 total = 2 [(tagger.tags) = "binding:\"required\""];
 }
+
+message GetCompetitionDetailRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message GetCompetitionDetailResponse {
+  message Competition {
+    int32 id = 1 [(tagger.tags) = "binding:\"required\""];
+    string name = 2 [(tagger.tags) = "binding:\"required\""];
+    repeated string contestant = 3 [(tagger.tags) = "binding:\"required\""];
+    int32 owner_id = 4 [(tagger.tags) = "binding:\"required\""];
+    string start_time = 5 [(tagger.tags) = "binding:\"required\""];
+    string deadline = 6 [(tagger.tags) = "binding:\"required\""];
+    int32 status = 7 [(tagger.tags) = "binding:\"required\""];
+    int32 category = 8 [(tagger.tags) = "binding:\"required\""];
+    int32 permission = 9 [(tagger.tags) = "binding:\"required\""];
+    int32 quantity = 10 [(tagger.tags) = "binding:\"required\""];
+  }
+
+  Competition competition_item = 1 [(tagger.tags) = "binding:\"required\""];
+}
+
+message GetRankingRequest {
+  int32 id = 1 [(tagger.tags) = "form:\"id\""];
+}
+
+message GetRankingResponse {
+  message RankItem {
+    string user_name = 1;
+    int32 score = 2;
+    int32 total_commit = 3;
+  }
+
+  repeated RankItem user_list = 1;
+}
